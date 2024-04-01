@@ -1,0 +1,474 @@
+<div class="row p-0 pt-4 ">
+    <div class="col-4">
+            <h2 class=" sticky-header mb-5 p-4">Customers
+                <span class="plus-sign">
+                    <div class="dropdown">
+                        <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <img src="assets/images/dots.png" alt="Dashboard Image" class="image">
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a class="dropdown-item" (click)="filterCustomers('all')">All</a>
+                            <a class="dropdown-item" (click)="filterCustomers('active')">Success</a>
+                            <a class="dropdown-item" (click)="filterCustomers('inactive')">Failure</a>
+                        </div>
+                        
+                    </div>
+                </span>
+                <span class="plus-sign mr-1">
+                    <div class="form-group ml-2">
+                        <button type="button" aria-label="plus" class="btn btn-primary"
+                            [routerLink]="['/admin/customer-register']">
+                            <i class="fa-solid fa-plus fa-2xs "></i>
+                        </button>
+                    </div>
+                </span>
+            </h2>
+            <div class="padding-top">
+                <div class="border customer-table">
+                <ng-container *ngIf="customers.length">
+                <div *ngFor="let item of customers" class="">
+                    <div class="d-flex justify-content-between border-bottom mt-3">
+                        <div class="col">
+                            <p class="text-start"><input type="checkbox" aria-label="checkbox" class="mr-1"><strong>{{
+                                    item.first_name }}</strong></p>
+                            <p class="text-start fw-light">¥{{ item.total_due_amount}}</p>
+                        </div>
+                        <div class="col text-end">
+                            <p class="" [ngClass]="{'text-success': item.is_active, 'text-danger': !item.is_active}"
+                                class="badge bg-light fw-bold"><strong>{{ item.text }}</strong></p>
+                        </div>
+                    </div>
+                </div>
+                <p class="ml-1"><strong>Total Count: {{ customers.length }}</strong></p>
+            </ng-container>
+            <ng-container *ngIf="loading">
+                <div class="text-center">
+                    <div class="spinner-border" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                    </div>
+            </ng-container>
+                <br>
+                </div>
+            </div>
+    </div>
+    <div class="col-8 table-responsive pt-5 pl-0">
+        <div class="col-auto mr-auto border-bottom pl-0">
+            <h1><img src="assets/images/left-arrow.png" routerLink="/admin/customer" class="custom-img mr-4"
+                    alt="left-arrow"><strong class="text-capitalize text-start"><span class="">{{ customer.title
+                        }}</span>
+                    {{customer.first_name}} <span>{{customer.last_name}}</span></strong></h1>
+        </div>
+        <div class="row mt-0 mb-3">
+            <nav class="navbar navbar-expand-lg ">
+                <div class="container border-bottom">
+                    <ul class="navbar-nav text-uppercase">
+                        <li class="nav-item">
+                            <a class="nav-link" [ngClass]="{ 'active': section === 'overview' }"
+                                (click)="switchSection('overview')">Overview</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" [ngClass]="{ 'active': section === 'invoice' }"
+                                (click)="switchSection('invoice')">Invoice</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" [ngClass]="{ 'active': section === 'payments' }"
+                                (click)="switchSection('payments')">Payments</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" [ngClass]="{ 'active': section === 'unused_payments' }"
+                                (click)="switchSection('unused_payments')">Unused Payments</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" [ngClass]="{ 'active': section === 'comments' }"
+                                (click)="switchSection('comments')">Comments</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <ng-container *ngIf="loading">
+                <div class="text-center">
+                    <div class="spinner-border" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                    </div>
+            </ng-container>
+        </div>
+        <div *ngIf="section=='overview'" class="overview">
+            <div class="row align-items-start ">
+                <div class="col-md-5 border p-3">
+                    <div class="container-fluid">
+                        <div class="row justify-content-center mb-2">
+                            <div class="col-auto">
+                                <img src="assets/images/default_profile.svg" alt="Profile">
+                            </div>
+                        </div>
+                        <div class="row justify-content-center p-2 border-bottom">
+                            <div class="col-auto">
+                                <p class="text-center text-capitalize"><strong><span class="">{{ customer.title
+                                            }}</span>
+                                        {{customer.first_name}} <span>{{customer.last_name}}</span></strong></p>
+                            </div>
+                            <p class="mb-2 text-center"
+                                [ngClass]="{'text-success': customer.is_active, 'text-danger': !customer.is_active, 'badge': true, 'bg-light': true, 'fw-bold': true}">
+                                Active{{customer.text}}</p>
+                        </div>
+                    </div>
+                    <div class="container  p-3 border-bottom">
+                        <div class="row justify-content-center g-2">
+                            <div class="col-auto">
+                                <img src="assets/images/whatsapp.svg" alt="WhatsApp" class="image">
+                            </div>
+                            <div class="col-auto">
+                                <img src="assets/images/fb.svg" alt="Facebook" class="image">
+                            </div>
+                            <div class="col-auto">
+                                <img src="assets/images/line.svg" alt="Line" class="image">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row  p-3 border-bottom" style="float:none">
+                        <p class="text-uppercase fw-light">Personal Info</p>
+                        <div class="container-fluid">
+                            <div class="row  ">
+                                <div class="col-auto">
+                                    <i class="fa fa-envelope mr-2" aria-hidden="true"></i>
+                                    <p class="mb-0 d-inline">{{ customer.email }}</p>
+                                </div>
+                                <div class="col-auto ml-4">
+                                    <p class="mb-1">{{ customer.mailing_address }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-auto">
+                                <i class="fa fa-mobile mr-2" aria-hidden="true"></i>
+                                <p class="mb-0 d-inline ">{{ customer.phone }}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-auto">
+                                <i class="fa fa-map-marker mr-2" aria-hidden="true"></i>
+                                <p class="mb-0 d-inline ">{{ customer.address }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center p-3 border-bottom">
+                        <p class="text-uppercase fw-lighter">Additional Info</p>
+                        <p class="text-size mb-0">Smartpit No</p>
+                        <p class="mb-2">{{ customer.smartpit_no}}</p>
+                        <p class="text-size mb-0">BankAuto (Telecom)</p>
+                        <p class="mb-2">{{ customer.bankautoid_telecom}}</p>
+                        <p class="text-size mb-0">BankAuto (Veritrans)</p>
+                        <p class="mb-2">{{ customer.bankauto_veritrans}}</p>
+                    </div>
+                    <div class="row justify-content-center p-3 ">
+                        <p class="text-uppercase fw-lighter">Other details</p>
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <p class="text-size mb-0">Customer Type</p>
+                                <p class="mb-2">{{ customer.customer_type ? customer.customer_type : '-' }}</p>
+                            </div>
+                            <div>
+                                <p class="text-size mb-0">Date of birth</p>
+                                <p class="mb-2">{{ customer.dob ? customer.dob : '-' }}</p>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <p class="text-size mb-0">Gender</p>
+                                <p class="mb-2">{{ customer.gender?customer.gender:'-'}}</p>
+                            </div>
+                            <div>
+                                <div class="text-start">
+                                    <p class="text-size mb-0 text-left">Company</p>
+                                    <p class="mb-2">{{ customer.company ?customer.company:'-' }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <p class="text-size mb-0">Profession</p>
+                                <p class="mb-2">{{ customer.profession ? customer.profession : '-' }}</p>
+                            </div>
+                            <div>
+                                <p class="text-size mb-0">Registration Date</p>
+                                <p class="mb-2">{{ customer.registration_date ? customer.registration_date : '-' }}
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <p class="text-size mb-0">Emergency Name</p>
+                                <p class="mb-2">{{ customer.emergency_contact_name ? customer.emergency_contact_name
+                                    : '-' }}</p>
+                            </div>
+                            <div>
+                                <p class="text-size mb-0">Emergency Phone</p>
+                                <p class="mb-2">{{ customer.emergency_contact_phone ?
+                                    customer.emergency_contact_phone : '-' }}</p>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <p class="text-size mb-0">ZipCode</p>
+                                <p class="mb-2">{{ customer.zipcode ? customer.zipcode : '-' }}</p>
+                            </div>
+                            <div>
+                                <p class="text-size mb-0">Province</p>
+                                <p class="mb-2">{{ customer.province ? customer.province : '-' }}</p>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <p class="text-size mb-0">Nationality</p>
+                                <p class="mb-2">{{ customer.nationality ? customer.nationality : '-' }}</p>
+                            </div>
+                            <div>
+                                <p class="text-size mb-0">Residence Card No</p>
+                                <p class="mb-2">{{ customer.residence_card_no ? customer.residence_card_no : '-' }}
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <p class="text-size mb-0">Residence Card Front</p>
+                                <a *ngIf="customer.residence_card_front" href="{{ customer.residence_card_front }}"
+                                    target="_blank">click to view</a>
+                                <span *ngIf="!customer.residence_card_front">-</span>
+                            </div>
+                            <div>
+                                <p class="text-size mb-0">Residence Card Back</p>
+                                <a *ngIf="customer.residence_card_back" href="{{ customer.residence_card_back }}"
+                                    target="_blank">click to view</a>
+                                <span *ngIf="!customer.residence_card_back">-</span>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <p class="text-size mb-0">Agent</p>
+                                <p class="mb-2">{{ customer.agent?.name ? customer.agent.name : '-' }}</p>
+                            </div>
+                            <div>
+                                <p class="text-size mb-0">Referer</p>
+                                <p class="mb-2">{{ customer.referer ? customer.referer : '-' }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-7">
+                    <div class="row row-3">
+                        <div class="col-auto">
+                            <div class="d-flex border">
+                                <div class="order-1  p-4 border-start">
+                                    <img src="assets/images/receivable.svg" alt="WhatsApp">
+                                    <p>receivables</p>
+                                    <p class="fs-4"><strong>¥ {{ customer.total_due_amount }}</strong></p>
+                                </div>
+                                <div class="order-2  p-4 border-start">
+                                    <img src="assets/images/excess_credit.svg" alt="WhatsApp">
+                                    <p>excess credits</p>
+                                    <p class="fs-4"><strong>¥ {{ customer.excess_credit }}</strong></p>
+                                </div>
+                                <div class="order-3 p-4 border-start">
+                                    <img src="assets/images/deposit.svg" alt="WhatsApp">
+                                    <p>deposit</p>
+                                    <p class="fs-4"><strong>¥ {{ customer.deposit}}</strong></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="conatiner">
+                        <p><strong>Card Info</strong></p>
+                        <div class="row">
+
+                            <ng-container *ngFor="let card of customer.cards">
+                                <div class="col-sm border">
+                                    <ng-container
+                                        *ngIf="card.brand.toLowerCase() === 'mastercard' || card.brand.toLowerCase() === 'visa'">
+                                        <div
+                                            [ngClass]="{'card-info-box-mastercard': card.brand.toLowerCase() === 'mastercard', 'card-info-box-visa': card.brand.toLowerCase() === 'visa'}">
+                                            <div class="card-body d-flex align-items-center">
+                                                <img src="assets/images/{{ card.brand.toLowerCase() }}.svg"
+                                                    alt="{{ card.brand }} card" class="image">
+                                                <div>
+                                                    <p class="card-text mb-1">{{ card.brand.toLowerCase() }}***
+                                                        ****{{card.last4}}</p>
+                                                    <p class="card-text mb-1">Expires {{ card.exp_month }}/{{
+                                                        card.exp_year }}</p>
+                                                    <p
+                                                        [ngClass]="{'card-status text-success': card.is_default, 'card-status text-danger': !card.is_default}">
+                                                        {{ card.is_default ? 'Default' : 'Expired' }}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </ng-container>
+                                </div>
+
+
+                            </ng-container>
+                            <div class='col-sm border text-center py-5'>
+                                +Add card
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="row mt-4">
+                        <p><strong>Subscriptions</strong></p>
+                        <div class="col">
+                            <div *ngFor="let post of subscription?.items">
+                                <p><strong>{{post.plan.name}}</strong></p>
+                                <small>
+                                    <p class="text-muted no-wrap mb-0">Subscription code:{{ post.code }}|Subscription:{{
+                                        post.plan_number}}</p>
+                                </small>
+                                <small>
+                                    <p class="text-muted no-wrap">Subscription name:{{ post.customer.first_name }}{{
+                                        post.customer.last_name }}|Subscription Relation:{{
+                                        post.subscriber_relation }}</p>
+                                </small>
+                                <div class="row row-3 mb-2">
+                                    <div class="col-auto">
+                                        <div class="d-flex border">
+                                            <div class="order-1  p-4 border-start">
+                                                <p class="text-muted">Next Billing Date</p>
+                                                <p> {{ post.next_billing_date }}</p>
+                                            </div>
+                                            <div class="order-2  p-4 border-start">
+                                                <p class="text-muted">Price</p>
+                                                <p> {{ post.total }}/{{ post.plan.interval_unit }}</p>
+                                            </div>
+                                            <div class="order-3 p-4 border-start">
+                                                <p class="text-muted">Status</p>
+                                                <p> {{ post.status }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="section=='invoice'&& invoices?.items.length > 0" class="invoice">
+            <table class="table">
+                <thead>
+
+
+                    <tr>
+                        <th scope="col">Invoice number</th>
+                        <th scope="col">Invoice date</th>
+                        <th scope="col">Total</th>
+                        <th scope="col">Due Amount</th>
+                        <th scope="col">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let post of invoices?.items">
+                        <td>{{post.number}}</td>
+                        <td>{{post.invoice_date}}</td>
+                        <td>{{post.total}}</td>
+                        <td>{{post.due_amount}}</td>
+                        <td>{{post.status_description}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div *ngIf="section=='payments'&& payments?.items.length > 0" class="payments">
+            <table class="table">
+                <thead>
+
+
+                    <tr>
+                        <th scope="col">Reference Num</th>
+                        <th scope="col">Invoices</th>
+                        <th scope="col">Amount</th>
+                        <th scope="col">Paid at</th>
+                        <th scope="col">Mode</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let post of payments?.items">
+                        <td>{{post.reference_number}}</td>
+                        <td>{{post.invoices.total}}</td>
+                        <td>{{post.amount}}</td>
+                        <td>{{post.paid_at}}</td>
+                        <td>{{post.mode}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div *ngIf="section=='unused_payments'" class="unused_payments">
+            <table class="table table-responsive h-100">
+                <thead>
+                    <tr>
+                        <th scope="col">Paid Date</th>
+                        <th scope="col">Reference Number</th>
+                        <th scope="col">Customer</th>
+                        <th scope="col">Mode</th>
+                        <th scope="col">Batch</th>
+                        <th scope="col">Total Amount</th>
+                        <th scope="col">Unused Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let post of Pendingpayments?.items">
+                        <td>{{post.paid_at}}</td>
+                        <td>{{post.reference_number}}</td>
+                        <td>{{post.customer.first_name}}</td>
+                        <td>{{post.mode}}</td>
+                        <td>{{post.batch}}</td>
+                        <td>{{post.amount}}</td>
+                        <td>{{post.due_amount}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div *ngIf="section == 'comments'" class="comments">
+            <form [formGroup]="commentForm" (ngSubmit)="onSubmitComment()">
+                <div class="form-group">
+                    <h2><strong>Comments</strong></h2>
+                    <textarea class="form-control" id="commentTextarea" formControlName="body" rows="3"
+                        aria-label="comments" placeholder="Write comments here.."></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary mb-3">Save</button>
+            </form>
+            <div *ngFor="let post of Customercomments" class="row mb-3">
+                <div class="col-auto">
+                    <img src="assets/images/default_profile.svg" alt="Profile" class="img-fluid rounded-circle"
+                        style="width: 50px; height: 50px;">
+                </div>
+                <div class="col">
+                    <div class="d-flex justify-content-between">
+                        <p><strong>{{ post.user?.first_name }}</strong></p>
+                        <button (click)="deleteComment(post?.id)" class="btn btn-link" aria-label="deletebutton">
+                            <i class="fas fa-times"></i>
+                        </button>
+
+
+                    </div>
+                    <p>{{ post.body }}</p>
+                    <p><small class="text-muted">{{ post.created_at }}</small></p>
+                </div>    
+            </div>
+
+        </div>
+
+
+    </div>
+</div>
+<div *ngIf="commentSuccessful" class="alert position-fixed bottom-0 end-0 m-3 border" style="z-index:10;">
+    <div class="text-success">Notification</div>
+    <div>Comment added!</div>
+  </div> 

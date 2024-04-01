@@ -1,0 +1,27 @@
+::placeholder {
+    font-size: 14px; 
+    font-family: 'Arial', sans-serif;
+}
+.table td,
+.table th {
+  border: none;
+}
+.table  tr {
+  border-bottom: 1px solid #ececec; 
+  padding:25px !important;
+}
+.amount-container {
+    padding-left: 40px;
+
+}
+.custom-img {
+  height: 20px;
+  width: 20px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.required:after {
+  content: " *";
+  color:red;
+}

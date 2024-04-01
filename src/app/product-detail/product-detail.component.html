@@ -1,0 +1,177 @@
+<div class="row p-0 pt-4 ">
+    <div class="col-4">
+
+        <h2 class=" sticky-header mb-5 p-4">Products
+            <span class="plus-sign">
+                <div class="dropdown">
+                    <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img src="assets/images/dots.png" alt="Dropdown image" class="image">
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <a class="dropdown-item" (click)="filterData('all')">All</a>
+                        <a class="dropdown-item"  (click)="filterData('active')">Active</a>
+                        <a class="dropdown-item" (click)="filterData('inactive')">Inactive</a>
+                    </div>
+                </div>
+            </span>
+            <span class="plus-sign mr-1">
+                <div class="form-group ml-2">
+                    <button type="button" aria-label="plus" class="btn btn-primary"
+                        [routerLink]="['/admin/create-product']">
+                        <i class="fa-solid fa-plus fa-2xs "></i>
+                    </button>
+                </div>
+            </span>
+        </h2>
+        <div class="padding-top">
+            <div class=" customer-table border">
+                <div *ngFor="let item of products" class="">
+                    <div class="d-flex  border-bottom mt-3">
+                        <div class="col ml-2">
+                            <input type="checkbox" aria-label="checkbox" class="mr-1">
+                            <a (click)="updateItemId(item.id)" class="text-start text-bolder mb-1"
+                                routerLinkActive="{{ item?.name}}" style="text-decoration: none; color: black;">
+                                <strong>{{ item?.name}}</strong></a>
+                            <div class="d-flex justify-content-between">
+                                <div class="d-inline-block mr-0">
+                                    <small class="">
+                                        <p class="text-start text-muted">{{ item.active_plan_count }} Plans</p>
+                                    </small>
+                                </div>
+                                <div class="d-inline-block mr-0">
+                                    <small>
+                                        <p class="text-start text-muted">{{ item.active_addon_count }} Addons</p>
+                                    </small>
+                                </div>
+                                <div class="d-inline-block mr-0">
+                                    <small>
+                                        <p class="text-start text-muted">{{ item.active_coupon_count }} Coupons</p>
+                                    </small>
+                                </div>
+                                <div class="d-inline-block ml-5">
+                                    <p>
+                                        <span [ngClass]="{'text-success': item.status, 'text-danger': !item.status}"
+                                            class="badge bg-light ">
+                                            {{ item.status ? 'Active' : 'Inactive' }}
+                                        </span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+            </div>
+        </div>
+    </div>
+    <div class="col-8 table-responsive pt-5 pl-0">
+        <div class="col-auto mr-auto border-bottom pl-0">
+            <h1><img src="assets/images/left-arrow.png" routerLink="/admin/products" class="custom-img mr-4"
+                    alt="left-arrow"><b class="text-capitalize text-start"><span class="">{{product?.name}}</span></b>
+            </h1>
+        </div>
+        <div class="row mt-0 mb-3">
+            <nav class="navbar navbar-expand-lg ">
+                <div class="container border-bottom">
+                    <ul class="navbar-nav">
+                        <li class="nav-item p-2">
+                            <a class="nav-link" [ngClass]="{ 'active': section === 'plans' }"
+                                (click)="switchSection('plans')">Plans<br>
+                                <p class="text-center mt-1 mb-0 font-weight-bold display-6">{{ plans.length }}</p>
+                            </a>
+                        </li>
+                        <li class="nav-item p-2">
+                            <a class="nav-link" [ngClass]="{ 'active': section === 'addons' }"
+                                (click)="switchSection('addons')">Addons<br>
+                                <p class="text-center mt-1 mb-0 font-weight-bold display-6">{{ addons.length }}</p>
+                            </a>
+                        </li>
+                        <li class="nav-item p-2">
+                            <a class="nav-link" [ngClass]="{ 'active': section === 'coupons' }"
+                                (click)="switchSection('coupons')">Coupons<br>
+                                <p class="text-center mt-1 mb-0 font-weight-bold display-6">{{ coupons.length }}</p>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+        <div *ngIf="section=='plans'&& plans && plans.length > 0" class="plans">
+            <div *ngFor="let item of plans" class="">
+                <div class="border-bottom">
+                    <div class="d-flex align-items-center mt-3">
+                        <div class="col">
+                            <h5 class="mt-3 fw-bold"><span class="ml-2">{{item.name}}({{item.interval_unit}})</span>
+                                <span [ngClass]="{'text-success': item.status, 'text-danger': !item.status}"
+                                    class=" bg-light ml-2">
+                                    {{ item.status ? 'Active' : 'Inactive' }}
+                                </span>
+                            </h5>
+                            <small class="mt-1 text-muted">Plan code: {{item.code}}</small>
+                        </div>
+                        <div class="col text-end">
+                            <p class="mb-0">¥{{item.price}}</p>
+                            <p class="mb-0">per semi-annual</p>
+                            <p class="mb-0 text-muted">
+                                <span class="bg-light">¥{{item.setup_fee}}</span> for registration
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div *ngIf="section === 'addons'&& addons && addons.length > 0" class="addons">
+            <div *ngFor="let item of addons" class="">
+                <div class="border-bottom ">
+                    <div class="d-flex align-items-center mt-3">
+                        <div class="col">
+                            <h5 class="mt-3 fw-bold text-capitalize"><span class="ml-2">{{item.name}}
+                                    ({{item.interval_unit}} Pay)</span>
+                                <span [ngClass]="{'text-success': item.status, 'text-danger': !item.status}"
+                                    class=" bg-light ml-2">
+                                    {{ item.status ? 'Active' : 'Inactive' }}
+                                </span>
+                            </h5>
+                            <small class="mt-1 text-muted">Code: {{item.code}}</small><br>
+                            <small class="mt-1 text-muted">Associated Plans: 1111</small>
+                        </div>
+                        <div class="col text-end">
+                            <p class="mb-0">¥{{item.price}}</p>
+                            <small>
+                                <p class="mb-0 text-muted">per month</p>
+                            </small>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div *ngIf="section=='coupons' && coupons.length > 0" class="coupons">
+            <div *ngFor="let item of coupons" class="">
+                <div class="border-bottom">
+                    <div class="d-flex align-items-center mt-3">
+                        <div class="col">
+                            <h5 class="mt-3 fw-bold"><span class="ml-2">{{item.name}}</span>
+                                <span [ngClass]="{'text-success': item.status, 'text-danger': !item.status}"
+                                    class=" bg-light ml-2">
+                                    {{ item.status ? 'Active' : 'Inactive' }}
+                                </span>
+                            </h5>
+                            <small class="mt-1 text-muted">Code: {{item.code}}</small><br>
+                            <small class="mt-1 text-muted">Valid Upto: {{item.expiry_date}}</small>
+                        </div>
+                        <div class="col text-end">
+                            <p class="mb-0">{{item.discount_value}}%</p>
+                            <small>
+                                <p class="mb-0 text-muted">{{item.usage_type}}</p>
+                            </small>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

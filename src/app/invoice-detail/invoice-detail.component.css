@@ -1,0 +1,52 @@
+.custom-img {
+    height: 20px;
+    width: 20px;
+    margin-bottom: 10px;
+    cursor: pointer;
+  }
+  .sticky-header {
+    position: fixed;
+    background-color: rgb(254, 252, 252);
+    width:25%;
+    z-index:5;
+    padding-top: 5px;
+  }
+  
+  .plus-sign {
+    float: right;
+    font-size: 10px;
+  }
+  .image{
+    height:20px;
+    width:20px
+   }
+   .padding-top{
+    padding-top: 95px;
+   }
+   .invoice-table{
+    width: 25%;
+    max-height: 100%;
+    transition: width 0.3s ease-in-out;
+    overflow-y: auto;
+    padding-top: 0px;
+    position:fixed;
+  }
+  thead th {
+    top: 0;
+    background-color: #FAFAFA;
+  }
+  table th {
+    font-size: 12px;
+  }
+  .no-wrap {
+    white-space: nowrap;
+  }
+  
+  .table td,
+  .table th {
+    border: none;
+  }
+  .table  tr {
+    border-bottom: 1px solid #ececec; 
+    padding:15px !important;
+  }

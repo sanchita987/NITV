@@ -1,0 +1,104 @@
+<!---serch buttons-->
+<div class="row mt-4 ml-2">
+  <div class="container mt-5 ">
+    <div class="row align-items-center justify-content-end p-0">
+      <div class="col-auto mr-auto">
+        <div class="form-group-0">
+          <h2><b>Customers</b></h2>
+        </div>
+      </div>
+      <div class="col-auto px-1">
+        <div class="form-group mr-0">
+          <div style="position: relative;">
+            <input id="search" (keyup)="searchData($event)" class="form-control" type="text" name="search"
+              aria-label="Select an option" placeholder="Search..">
+            <i class="fas fa-search search-icon"></i>
+          </div>
+        </div>
+      </div>
+      <div class="col-auto px-1">
+        <div class="form-group mr-0">
+          <select (change)="filterData($event)" name="selectElement" id="selectElement" class="form-control"
+            aria-label="Select an option">
+            <option>Filter</option>
+            <option value="all">All</option>
+            <option value="inactive">Inactive</option>
+            <option value="active">Active</option>
+            <option value="bankauto_veritrans">Bank Auto veritrans</option>
+            <option value="smartpit">Smart pit</option>
+            <option value="bankauto_telecom">Bank Auto Telecom</option>
+            <option value="credit_card">Credit Card</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-auto px-1">
+        <div class="form-group mr-0">
+          <button type="button" [routerLink]="['/admin/customer-register']" class="btn btn-primary">
+            <i class="fa-solid fa-plus mr-1"></i>Add new
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ng-container *ngIf="customers.items.length" >
+    <table class="table mb-0" *ngIf="!loading && customers.items.length">
+      <thead>
+        <tr>
+          <th scope="col" (click)="toggleSortOrder('customer_number')" class="sortable-header">Customer No</th>
+          <th scope="col" (click)="toggleSortOrder('first_name')" class="sortable-header">Name</th>
+          <th scope="col" (click)="toggleSortOrder('email')" class="sortable-header pl-4px">Email</th>
+          <th scope="col" (click)="toggleSortOrder('phone')" class="sortable-header">Phone</th>
+          <th scope="col" class="sortable-header">Due amount</th>
+          <th scope="col" (click)="toggleSortOrder('excess_credit')" class="sortable-header">Excess Credit</th>
+          <th scope="col" (click)="toggleSortOrder('is_active')" class="sortable-header">Status</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let post of customers.items" >
+          <td>{{post.customer_number}}</td>
+          <td>{{ truncateText(post.first_name) }}</td>
+          <td>{{post.email}}</td>
+          <td>{{post.phone}}</td>
+          <td>
+            <span>$ {{post.total_due_amount}}</span>
+          </td>
+          <td>{{post.excess_credit}}</td>
+          <td><span [ngClass]="{'text-success': post.is_active, 'text-danger': !post.is_active}"
+              class="badge bg-light fw-bold">{{post.text}}
+            </span></td>
+          <td>
+            <div class="dropdown">
+              <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <img src="assets/images/dot.png" alt="Dashboard Image" class="image">
+              </a>
+              <div class="dropdown-menu dropdown-menu-right">
+                <a [routerLink]="['/admin/customer', post.id]" class="dropdown-item">Detail</a>
+                <a [routerLink]="['/admin/customer', post.id, 'update']" class="dropdown-item">Update</a>
+              </div>
+            </div>
+          </td>
+
+
+        </tr>
+      </tbody>
+    </table>
+    <ng-container *ngIf="loading">
+      <div class="text-center">
+          <div class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+          </div>
+  </ng-container>
+
+
+    <!-- Pagination and bootstrap -->
+    <div class="pagination mt-3">
+      <button (click)="loadPreviousPage()">Previous</button>
+      <span *ngFor="let page of getPageNumbers()">
+        <button (click)="loadPage(page)" [class.active]="currentPage === page">{{ page }}</button>
+      </span>
+      <button (click)="loadNextPage()">Next</button>
+    </div>
+  </ng-container>
+</div>

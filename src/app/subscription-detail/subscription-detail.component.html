@@ -1,0 +1,374 @@
+<div class="row p-0 pt-4 ">
+    <div class="col-4">
+            <h2 class=" sticky-header mb-5 p-4">Subscriptions
+                <span class="plus-sign">
+                    <div class="dropdown">
+                        <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <img src="assets/images/dots.png" alt="Dashboard Image" class="image">
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a class="dropdown-item" href="#">Live</a>
+                            <a class="dropdown-item" href="#">Future</a>
+                            <a class="dropdown-item" href="#">Cancelled</a>
+                            <a class="dropdown-item" href="#">Non Renewing</a>
+                            <a class="dropdown-item" href="#">Extra charge</a>
+                        </div>
+                    </div>
+                </span>
+                <span class="plus-sign mr-1">
+                    <div class="form-group ml-2">
+                        <button type="button" aria-label="plus" class="btn btn-primary"
+                            [routerLink]="['/admin/create-subscription']">
+                            <i class="fa-solid fa-plus fa-2xs "></i>
+                        </button>
+                    </div>
+                </span>
+            </h2>
+            <div class="padding-top">
+                <div class="border customer-table">
+                <div *ngFor="let subscription of subscriptions" class="">
+                    <div class="d-flex  border-bottom mt-3">
+                        <div class="col">
+                            <p class="text-start no-wrap mb-0"><input type="checkbox" aria-label="checkbox" class="mr-1"><strong>{{ subscription.customer.first_name}} {{
+                                    subscription.customer.last_name}}</strong></p>
+                            <p class="text-start fw-light ml-2">  {{ subscription.plan.name}}</p>
+                        </div>
+                        <div class="col">
+                            <p class="text-end fw-light">¥ {{ subscription.total}}</p>
+                            <p class="mb-2 text-end"
+                            [ngClass]="{'text-success': subscription.status === 'live',
+                              'text-black': subscription.status === 'expired',
+                              'text-info': subscription.status === 'future',
+                              'text-danger': !subscription.status,}">
+                            <span class="bg-light">{{subscription.status}}</span>
+                         </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+    </div>
+    <div class="col-8 table-responsive pt-5 pl-0">
+        <div class="col-auto mr-auto border-bottom pl-0">
+            <h1><img src="assets/images/left-arrow.png" routerLink="/admin/subscriptions" class="custom-img mr-4"
+                    alt="left-arrow"><strong class="text-capitalize text-start"><span class="">{{ subscriber.plan?.name
+                        }}</span></strong></h1>
+        </div>
+        <div class="row mt-0 mb-3">
+            <nav class="navbar navbar-expand-lg ">
+                <div class="container border-bottom">
+                    <ul class="navbar-nav text-uppercase">
+                        <li class="nav-item">
+                            <a class="nav-link" [ngClass]="{ 'active': section === 'overview' }"
+                                (click)="switchSection('overview')">Overview</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" [ngClass]="{ 'active': section === 'invoice' }"
+                                (click)="switchSection('invoice')">Invoices</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" [ngClass]="{ 'active': section === 'activities' }"
+                                (click)="switchSection('activities')">Activities</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" [ngClass]="{ 'active': section === 'extra_charges' }"
+                                (click)="switchSection('extra_charges')">Extra charges</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" [ngClass]="{ 'active': section === 'comments' }"
+                                (click)="switchSection('comments')">Comments</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+        <div *ngIf="section=='overview'" class="overview">
+            <div class="row align-items-start ">
+                <div class="col-md-5 border p-3">
+                    <div class="container-fluid">
+                        <div class="row justify-content-center mb-2">
+                            <div class="col-auto">
+                                <img src="assets/images/default_profile.svg" alt="Profile">
+                            </div>
+                        </div>
+                        <div class="row justify-content-center p-2 border-bottom">
+                            <div class="col-auto">
+                                <p class="text-center text-capitalize"><strong><span class="">{{subscriber.subscriber_name}}</span></strong></p>
+                            </div>
+                            <p class="mb-2 text-center"
+                            [ngClass]="{'text-success': subscriber.status === 'live',
+                              'text-black': subscriber.status === 'expired',
+                              'text-info': subscriber.status === 'future',
+                              'text-danger': !subscriber.status,}">
+                            <span class="bg-light">{{subscriber.status}}</span>
+                         </p>
+                        </div>
+                    </div>
+                    <div class="row  p-3" style="float:none">
+                        <p class="text-uppercase font-weight-light">Customer Contact</p>
+                        <div class="container-fluid">
+                            <div class="row  ">
+                                <div class="col-auto">
+                                    <i class="fa fa-envelope mr-2" aria-hidden="true"></i>
+                                    <p class="mb-0 d-inline">{{ subscriber.customer?.email }}</p>
+                                </div>
+                                <div class="col-auto ml-4">
+                                    <p class="mb-1">{{ subscriber.customer?.mailing_address }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-auto">
+                                <i class="fa fa-mobile mr-2" aria-hidden="true"></i>
+                                <p class="mb-0 d-inline ">{{ subscriber.customer?.phone }}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-auto">
+                                <i class="fa fa-map-marker mr-2" aria-hidden="true"></i>
+                                <p class="mb-0 d-inline ">{{ subscriber.customer?.building }}</p><br>
+                                <p class="mb-0 d-inline ">{{ subscriber.customer?.address }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center p-3 border-bottom">
+                        <p class="text-uppercase fw-lighter">Subscription Info</p>
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <p class="text-size mb-0">Plan Id</p>
+                                <p class="mb-2">{{ subscriber.plan?.id ? subscriber.plan?.id : '-' }}</p>
+                            </div>
+                            <div>
+                                <p class="text-size mb-0">Subscription Code </p>
+                                <p class="mb-2">{{ subscriber?.code}}</p>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <p class="text-size mb-0">Product</p>
+                                <p class="mb-2">{{ subscriber.product?.name}}</p>
+                            </div>
+                            <div>
+                                <p class="text-size mb-0">Repect Every</p>
+                                <p class="mb-2">{{ subscriber.plan?.quantity}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center p-3 border-bottom">
+                        <p class="text-uppercase fw-lighter">Other details</p>
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <p class="text-size mb-0">Activation Date</p>
+                                <p class="mb-2">{{ subscriber.start_date ? subscriber.start_date : '-' }}</p>
+                            </div>
+                            <div>
+                                <p class="text-size mb-0">Created Date</p>
+                                <p class="mb-2">{{subscriber.created_at}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center p-3 border-bottom">
+                        <p class="text-uppercase fw-lighter">Contact Person</p>
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <p class="text-size mb-0">First Name</p>
+                                <p class="mb-2">Pen</p>
+                            </div>
+                            <div>
+                                <p class="text-size mb-0">Last Name</p>
+                                <p class="mb-2">Issuc</p>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <p class="text-size mb-0">Email</p>
+                                <p class="mb-2">gard&#64;gratsten.com
+                                </p>
+                            </div>
+                            <div>
+                                <p class="text-size mb-0">Phone</p>
+                                <p class="mb-2">+977154585552</p>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <p class="text-size mb-0">Mobile</p>
+                                <p class="mb-2">9841212122</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-7">
+                    <div class="row row-2 mb-2">
+                        <div class="col">
+                            <div class="row">
+                                <div class="col border p-2">
+                                    <small><p class="text-muted">Subscription Amount</p></small>
+                                    <p>¥ {{ subscriber.total ? subscriber.total : '-' }}</p>
+                                </div>
+                                <div class="col border p-2">
+                                    <small><p class="text-muted">Next Billing Date</p></small>
+                                    <p>{{ subscriber.next_billing_date ? subscriber.next_billing_date : '-' }}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col border p-2">
+                                    <small><p class="text-muted">Last Billing Date</p></small>
+                                    <p>{{ subscriber.last_billing_date ? subscriber.last_billing_date : '-'}}</p>
+                                </div>
+                                <div class="col border p-2">
+                                    <small><p class="text-muted">Billing cycles left</p></small>
+                                    <p>{{ subscriber.billing_cycle ? subscriber.billing_cycle : '-'}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Plan and Addon Details</th>
+                                <th scope="col">Price</th>
+                                <th scope="col">Qty</th>
+                                <th scope="col">Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngIf="plan">
+                                <td>{{ plan.name }}<br>
+                                    <small class="text-muted">{{plan.description}}</small>
+                                </td>
+                                <td>{{ plan.unit_price }}</td>
+                                <td>{{ plan.quantity }}</td>
+                                <td>{{plan.amount}}</td>
+                            </tr>
+                            <tr *ngFor="let post of addons">
+                                <td>{{post.name}}<br>
+                                    <small class="text-muted">{{post.description}}</small>
+                                </td>
+                                <td>{{post.unit_price}}</td>
+                                <td>{{post.quantity}}</td>
+                                <td>{{post.amount}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="d-flex justify-content-end">
+                        <div>
+                            <p class="text-end"
+                                *ngIf="subscriber.setup_fee !== null&& subscriber.setup_fee >0">
+                                Registration fee: {{subscriber.setup_fee}}</p>
+                            <p class="text-end"
+                                *ngIf="subscriber.total_tax_amount !== null&& subscriber.total_tax_amount >0">
+                                Tax Included: {{subscriber.total_tax_amount}}</p>
+                            <p class="text-end"
+                                *ngIf="subscriber.sub_total!== null &&subscriber.sub_total>0">Total:
+                                {{subscriber.sub_total}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="section=='invoice'&& invoices?.items.length > 0" class="invoice">
+            <table class="table">
+                <thead>
+
+
+                    <tr>
+                        <th scope="col">Invoice</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Amount</th>
+                        <th scope="col">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let post of invoices.items">
+                        <td>{{post.number}}</td>
+                        <td>{{post.invoice_date}}</td>
+                        <td>{{post.total}}</td>
+                        <td>{{post.status}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div *ngIf="section=='extra_charges' && charges.length > 0" class="invoice">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Plan and Addon charge</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let post of charges.data.extra_charges">
+                        <td>{{post.name}}<br>
+                            <small class="text-muted">{{post.description}}</small>
+                        </td>
+                        <td>{{post.unit_price}}</td>
+                        <td>{{post.quantity}}</td>
+                        <td>{{post.total}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div *ngIf="section=='activities'" class="activities">
+            <div class="container mt-5">
+                <div class="row">
+                    <div class="col-md-6">
+                        <!-- Range input and transparent boxes -->
+                        <div class="d-flex align-items-center">
+                            <div class="vertical-slider-container me-3">
+                                <input aria-label="range" type="range" class="form-range rotate-270" id="customRange1">
+                            </div>
+                            <div class="transparent-box flex-grow-1">
+                                <p class="card-text text-muted">2023/04/26 <br>10:32 PM</p>
+                            </div><br>
+                            <div class="transparent-box flex-grow-1">
+                                <p class="card-text text-muted">2023/04/26 <br>10:32 PM</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <!-- Cards -->
+                        <div class="card rounded-0 border-primary">
+                            <div class="card-body">
+                                <h5 class="card-title text-primary">Registration</h5>
+                                <p class="card-text">Subscription - NITV SIM-M2 PLAN 9GB Basic Monthly has been Renewed</p>
+                            </div>
+                        </div>
+                        <div class="card rounded-0 border-primary mt-3">
+                            <div class="card-body">
+                                <h5 class="card-title text-primary">Registration</h5>
+                                <p class="card-text">Subscription - NITV SIM-M2 PLAN 9GB Basic Monthly has been Renewed</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            </div>
+        <div *ngIf="section == 'comments'" class="comments">
+            <form [formGroup]="commentForm" (submit)="onSubmitComment()">
+                <div class="form-group">
+                    <h2><strong>Comments</strong></h2>
+                    <textarea class="form-control" id="commentTextarea" formControlName="body" rows="3"
+                        aria-label="comments" placeholder="Write comments here.."></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary mb-3" click="onSubmitComment">Save</button>
+            </form>
+            <div *ngFor="let post of subscriptioncomments" class="row mb-3">
+                <div class="col-auto">
+                    <img src="assets/images/default_profile.svg" alt="Profile" class="img-fluid rounded-circle"
+                        style="width: 50px; height: 50px;">
+                </div>
+                <div class="col">
+                    <p><strong>{{ post.user.first_name }}</strong></p>
+                    <p>{{ post.body }}</p>
+                    <p><small class="text-muted">{{ post.created_at }}</small></p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,68 @@
+<div class="row mt-4 ml-2">
+<div class="container mt-5">
+        <div class="row align-items-center justify-content-end p-0">
+          <div class="col-auto mr-auto mt-2 ">
+              <div class="form-group-0">
+                <h2><b>Invoice Details</b></h2>
+              </div>
+            </div>
+            <div class="col-auto px-1">
+              <div class="form-group mr-0">
+                  <button type="button" class="btn btn-primary" [routerLink]="['/admin/invoice-register']">
+                      <i class="fa-solid fa-plus mr-1"></i>Add new
+                  </button>
+              </div>
+            </div>
+            </div>
+      
+            <table class="table " *ngIf="invoice.items?.length">
+              <thead>
+                  <tr>
+                  <th scope="col">Invoice Number</th>
+                  <th scope="col">Date</th> 
+                  <th scope="col">Due Date</th> 
+                  <th scope="col">First Name</th>
+                  <th scope="col">Last Name</th>
+                  <th scope="col">Total amount</th>
+                  <th scope="col">Due amount</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Action</th> 
+                </tr>               
+              </thead>
+              <tbody>
+                <tr *ngFor="let post of invoice.items">
+                  <td class="no-wrap">{{post.number}}</td>
+                  <td class="no-wrap">{{post.invoice_date}}</td>
+                  <td class="no-wrap">{{post.invoice_due_date}}</td>
+                  <td>{{post.customer.first_name}}</td>
+                  <td>{{post.customer.last_name}}</td>
+                  <td>{{post.total}}</td>
+                  <td>{{post.due_amount}}</td>
+                  <td>
+                  <span [ngClass]="{'text-success': post.status === 'paid',  'text-warning': post.status === 'partially_paid', 'text-danger': post.status === 'overdue', 'text-info': post.status === 'sent'}" class="badge bg-light fw-bold">
+                    {{ post.status_description }}
+                  </span>
+                  </td>
+                  <td>
+                    <div class="dropdown">
+                      <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img src="assets/images/dot.png" alt="Dashboard Image" class="image" >
+                      </a>
+                      <div class="dropdown-menu dropdown-menu-right">
+                        <a class="dropdown-item" [routerLink]="['/admin/invoice', post.id]">Detail</a>
+                      </div>
+                    </div>
+                  </td>
+                  </tr>
+              </tbody>
+            </table>
+            <ng-container *ngIf="loading">
+              <div class="text-center">
+                  <div class="spinner-border" role="status">
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                  </div>
+          </ng-container>
+          </div>
+        </div>
+      

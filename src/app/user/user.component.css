@@ -1,0 +1,21 @@
+.sticky-header {
+    position: sticky;
+    top: 50px;
+    background-color: #ffffff;
+    z-index: 500; 
+    margin-top: 30;
+  }
+  thead th {
+    top: 0;
+    background-color: #FAFAFA;
+  }
+  
+  table th {
+    text-transform: uppercase;
+    font-size: 12px;
+  }
+  
+  .table td,
+  .table th {
+    border: none;
+  }

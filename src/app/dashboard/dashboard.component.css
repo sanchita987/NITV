@@ -1,0 +1,45 @@
+.box {
+    border: 2px solid #0000006a; 
+    border-radius: 1px; 
+    width: 100%; 
+max-height:320px; 
+    padding: 50px;
+  }
+  thead th {
+    background-color:#FAFAFA;
+  }
+.table th {
+  border: none;
+}
+.table tr {
+  border: none;
+}
+.box {
+  border: 1px solid #cccccc5f;
+  padding: 15px;
+  border-radius: 5px; 
+}
+.number{
+  margin-top: 10px; font-size: 30px; font-weight: bold; display: inline-block;
+}
+.image{
+  height: 40px; width: 40px;
+}
+.small-image{
+  height: 20px; width: 20px;
+}
+.blue{
+  background-color: #1ab6c4; display: inline-block; padding: 5px;
+}
+.red{
+  background-color: #fd552e; display: inline-block; padding: 5px;
+}
+.orange {
+  background-color: #ff8421; display: inline-block; padding: 5px;
+}
+.purple {
+  background-color: #7a70ee; display: inline-block; padding: 5px;
+}
+.white{
+  background-color:#f1f2ff; height:200px; width:200px;
+}
