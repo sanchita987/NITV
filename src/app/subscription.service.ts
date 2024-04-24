@@ -14,10 +14,13 @@ export class SubscriptionService {
   private customerUrl = `${this.apiUrl}customer`;
 
   constructor(private http: HttpClient) { }
-  getsubscription(search: string, filter: string): Observable<any[]> {
+  getsubscription(search: string, filter: string, page: number,sortOrder: string,): Observable<any[]> {
     const params = new HttpParams()
       .set('search', search)
-      .set('filter', filter);
+      .set('filter', filter)
+      .set('page', page.toString())
+      .set('sort_order', sortOrder)
+      
     return this.http.get<any[]>(this.subscriptionUrl, { params });
   }
   getsubscriptions(): Observable<any> {

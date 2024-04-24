@@ -39,19 +39,16 @@ thead th {
   height: 20px;
   width:20px;
 }
-.pagination {
-  display: flex;
-  justify-content: center;
-  margin-top: 10px;
-}
-.pagination button {
-  padding: 5px 10px;
-  margin: 0 5px;
-  cursor: pointer;
-}
 
-.pagination button.active {
-  background-color: #007bff;
-  color: #fff;
+.page-link.active {
+  color: #309FED;
+}
+.dropdown-item:hover{
+  color: rgb(50, 129, 220);
+}
+ .dropdown-item{
+ padding-top: 0rem;
+ padding-bottom: 0rem;
+ background-color: white;
 }
 

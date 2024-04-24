@@ -1,45 +1,67 @@
-<div class="row mt-4 ml-2">
-<div class="container mt-5">
-  <div class="row align-items-center justify-content-end p-0">
-    <div class="col-auto mr-auto mt-2 ">
-        <div class="form-group-0">
-          <h2><b>Payments</b></h2>
+<div class="row mt-4 ml-1">
+      <div class="container mt-4">
+        <div class="row align-items-center justify-content-end p-o">
+           <div class="col-auto mr-auto mt-2 ">
+                <div class="form-group-0">
+                    <h2><b>Payments</b></h2>
+                </div>
+            </div>
+            <div class="col-auto px-1">
+                <div class="form-group mr-0">
+                    <div style="position: relative;">
+                        <input id="search"  class="form-control" type="text"
+                            name="search" placeholder="Search.." aria-label="Search"(keyup)="searchData($event)" >
+                        <i class="fas fa-search search-icon"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-auto px-1">
+                <div class="form-group mr-0">
+                    <button type="button" class="btn button" routerLink="/admin/create-payment">
+                        + Add new
+                    </button>
+                </div>
+            </div>
+            <div class="col-auto px-1">
+              <div class="dropdown dropright">
+                <a href="#"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <img src="assets/images/dots.png" alt="Dashboard Image" class="dots border" >
+                </a>
+                <div class="dropdown-menu">
+                  <a [routerLink]="[]" class="dropdown-item pb-1">Import Payments</a>
+                  <a [routerLink]="[]" class="dropdown-item pb-1">Unused payments list</a>
+                </div>
+              </div>
+            </div>
         </div>
+    </div>
       </div>
-      <div class="col-auto px-1">
-        <div class="form-group mr-0">
-            <button type="button" class="btn btn-primary" [routerLink]="['/admin/create-payment']">
-                <i class="fa-solid fa-plus mr-1"></i>Add new
-            </button>
-        </div>
-      </div>
-      </div>
-          <table class="table mb-0" *ngIf="payment.data.items.length">
+          <table class="table mb-0" *ngIf="payment?.data?.items?.length">
             <thead class="sticky-header">
               <tr>
-                <th scope="col">Payment Date</th>
+                <th scope="col" class="text-nowrap">Payment Date</th>
                 <th scope="col">Payment No.</th>
                 <th scope="col"> Invoice Number</th>
                 <th scope="col">Customer</th>
                 <th scope="col" >Mode</th>
-                <th scope="col">Total Amount</th>
+                <th scope="col" class="text-nowrap">Total Amount</th>
                 <th scope="col">Status</th>
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let item of payment.data.items">
-                <td>{{item.paid_at}}</td>
+              <tr *ngFor="let item of payment?.data?.items">
+                <td>{{item?.paid_at}}</td>
                 <td class="no-wrap">{{item.payment_number}}</td>
                 <td>
                   <div class="truncate-text">
-                    <ng-container *ngFor="let invoice of item.invoices; let i = index">
+                    <ng-container *ngFor="let invoice of item?.invoices; let i = index">
                       {{ invoice.number }}{{ i === item.invoices.length - 1 ? '' : ', '}}
                     </ng-container>
                   </div>
                 </td>
-                <td>{{item.customer.first_name}}</td>
-                <td>{{item.mode}}</td>
-                <td>{{item.amount}}</td>
+                <td>{{item?.customer.first_name}}</td>
+                <td class="text-nowrap">{{item?.mode}}</td>
+                <td>¥ {{item?.amount}}</td>
                 <td>
                 <span [ngClass]="{'text-success': item.mode, 'text-danger': !item.mode}" class="badge bg-light fw-bold">
                   {{ item.mode ? 'Success' : 'Failed' }}
@@ -51,7 +73,8 @@
                       <img src="assets/images/dot.png" alt="Dashboard Image" class="image" >
                     </a>
                     <div class="dropdown-menu dropdown-menu-right">
-                      <a class="dropdown-item" [routerLink]="['/admin/payment', item.id]">Detail</a>
+                      <a class="dropdown-item" [routerLink]="['/admin/payment', item.id]">Show</a>
+                      <a [routerLink]="['/admin/payment', item.id, 'update']" class="dropdown-item">Edit</a>
                     </div>
                   </div>
                 </td>
@@ -65,5 +88,3 @@
                 </div>
                 </div>
         </ng-container>
-        </div>
-</div>

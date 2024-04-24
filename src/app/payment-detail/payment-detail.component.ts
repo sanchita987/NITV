@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { PaymentService } from '../payment.service';
 import { CommonModule } from '@angular/common';
 import { RouterModule, ActivatedRoute } from '@angular/router';
+import html2canvas from 'html2canvas';
+import jspdf from 'jspdf';
 
 @Component({
   selector: 'app-payment-detail',
@@ -44,6 +46,18 @@ export class PaymentDetailComponent {
       }
     });
   }
-  
+  downloadPdf(): void {
+    const element = document.getElementById('pdfdownload');
+    if (element !== null) {
+      html2canvas(element).then(canvas => {
+        const imgData = canvas.toDataURL('image/png');
+        const pdf = new jspdf('p', 'mm', 'a4');
+        const pdfWidth = pdf.internal.pageSize.getWidth();
+        const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+        pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+        pdf.save('Payment.pdf');
+      });
+    }
+  }
   
 }

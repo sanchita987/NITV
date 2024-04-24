@@ -7,6 +7,7 @@ import { FormsModule, Validators } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { finalize } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 declare const $: any;
 @Component({
@@ -27,6 +28,7 @@ export class ProductsComponent {
   loading:boolean = true;
   currentPage: number = 1;
   totalPages: number = 50;
+  sortColumn: string = 'desc';
 
   constructor(private data: ProductService, private productService: ProductService,
     private route: ActivatedRoute, private router: Router,
@@ -54,24 +56,29 @@ export class ProductsComponent {
     this.search = e.target.value;
     this.loadPorudcts()
   }
+  truncateText(text: string, maxLength: number = 20): string {
+    return text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
+  }
 
   loadPorudcts() {
-    this.data.getProduct(this.filter, this.search, this.currentPage)
+    this.data.getProduct(this.filter, this.search, this.currentPage, this.sortColumn)
       .pipe(
-        finalize(() => {
-          this.loading = false;
+        finalize(() => this.loading = false),
+        map((response: any) => {
+          if (!response || !response.data || !response.data.items) {
+            throw new Error('Product data is missing or in an unexpected format.');
+          }
+          const sortedItems = response.data.items.sort((a: any, b: any) => {
+            return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
+          });
+          const totalPages = Math.min(response.total_pages, 10);
+          return { items: sortedItems, totalPages };
         })
       )
       .subscribe({
-        next: (response: any) => {
-          console.log(response, "response")
-          if (response && response.data && response.data.items) {
-            this.product.data.items = response.data.items;
-            this.totalPages = Math.min(response.total_pages, 10);
-          } else {
-            console.error('Product data is missing or in unexpected format.');
-            this.totalPages = 0;
-          }
+        next: ({ items, totalPages }: any) => {
+          this.product.data.items = items;
+          this.totalPages = totalPages;
         },
         error: (error) => {
           if (error.status === 404) {
@@ -83,17 +90,16 @@ export class ProductsComponent {
       });
   }
   
+  
+  
   loadNextPage() {
-    if (this.currentPage >= this.totalPages) {
+    this.currentPage++;
+    if (this.currentPage >= 4) {
       alert('No more next pages found');
       return;
     }
-    this.currentPage++;
     this.loadPorudcts();
-    console.log('Current Page:', this.currentPage);
-    console.log('Total Pages:', this.totalPages);
-
-  }
+}
   
 loadPreviousPage() {
     if (this.currentPage === 1) {
@@ -106,7 +112,7 @@ loadPreviousPage() {
 
   getPageNumbers(): number[] {
     const totalPagesArray = [];
-    for (let i = 1; i <= 5; i++) {
+    for (let i = 1; i <= 3; i++) {
       totalPagesArray.push(i);
     }
     return totalPagesArray;

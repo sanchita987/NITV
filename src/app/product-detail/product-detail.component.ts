@@ -2,6 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { ProductService } from '../product.service';
+import { Location } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-product-detail',
@@ -12,6 +14,8 @@ import { ProductService } from '../product.service';
 })
 export class ProductDetailComponent implements OnInit {
   productId: number = 0;
+  activeItemId: string = '';
+  activeLinkName: string = '';
   plans: any = {};
   coupons: any = {};
   addons: any = {};
@@ -20,8 +24,8 @@ export class ProductDetailComponent implements OnInit {
   section: any = 'plans';
   activeSection: string = 'plans';
   filter = 'all';
-  constructor(private productService: ProductService,
-  private route: ActivatedRoute) {
+  constructor(private productService: ProductService, private router :Router,
+  private route: ActivatedRoute,private location: Location) {
   }
 
   ngOnInit(): void {
@@ -30,14 +34,15 @@ export class ProductDetailComponent implements OnInit {
       this.fetchProductData(this.productId);
     });
     this.filterData(this.filter);
-
   }
   
   updateItemId(newItemId: string): void {
+    this.activeItemId = newItemId;
     this.productId = parseInt(newItemId, 10); 
     this.fetchProductData(this.productId);
+    // Constructed the URL manually and updated the browser's URL without causing a full page reload
+    this.location.replaceState('/admin/products/' + this.productId);
   }
-  
   fetchProductData(productId: number): void {
     this.productService.getProductById(productId.toString()).subscribe((response: any) => {
       console.log(response, "response");
@@ -45,10 +50,8 @@ export class ProductDetailComponent implements OnInit {
       this.plans = this.product.plans || [];
       this.coupons = this.product.coupons || [];
       this.addons = this.product.addons || [];
-      console.log('Plans:', this.product.plans);
-      console.log('Coupons:', this.product.coupons);
-      console.log('Addons:', this.product.addons);
-      console.log('Product:', this.product);
+      this.activeLinkName = this.product.id;
+      console.log('active id:', this.product.id);
     });
   }
 

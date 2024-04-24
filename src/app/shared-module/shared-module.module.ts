@@ -7,6 +7,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { materialmodule } from '../materials-module.service';
 import { MatTableModule } from '@angular/material/table';
 import { ToastrModule } from 'ngx-toastr';
+import { DatePipe } from '@angular/common';
 import { NgxUiLoaderHttpModule, NgxUiLoaderModule, NgxUiLoaderRouterModule } from 'ngx-ui-loader';
 
 @NgModule({
@@ -21,6 +22,6 @@ import { NgxUiLoaderHttpModule, NgxUiLoaderModule, NgxUiLoaderRouterModule } fro
     NgxUiLoaderHttpModule.forRoot({showForeground:true}),
     ToastrModule.forRoot(),
   ],
-  providers:[DataService],
+  providers:[DataService, DatePipe],
 })
 export class SharedModuleModule { }

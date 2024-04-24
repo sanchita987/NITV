@@ -49,6 +49,19 @@
   width:20px
  }
  .padding-top{
-  padding-top: 95px;
+  padding-top: 85px;
  }
- 
+ .background-color
+{ background-color:#f6f6f6;} 
+.no-background-color{
+  background-color: white;
+  box-shadow: 0px -4px 8px 0px rgba(0, 0, 0, 0.1);
+}
+.dropdown-item:hover{
+  color: rgb(35, 137, 255);
+}
+.dropdown-item{
+ padding-top: 0rem;
+ padding-bottom: 0rem;
+ background-color: white;
+}

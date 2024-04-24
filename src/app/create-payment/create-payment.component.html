@@ -1,10 +1,13 @@
-<div class="mt-5  ml-4 mr-auto">
+<div class="mt-5  ml-2 mr-auto">
   <div class="row ">
     <div class="container mt-4">
       <div class="row align-items-center justify-content-end p-0">
         <div class="col-auto mr-auto">
           <div class="form-group-0"> 
-            <h2> <img src="assets/images/left-arrow.png" routerLink="/admin/payment" class="custom-img mr-4" alt="left-arrow"><b>Add Payment</b></h2>
+            <h1> <button type="button" class="btn border p-1">
+              <img src="assets/images/back.png" routerLink="/admin/payment"
+              class="custom-img" alt="left-arrow">
+          </button><b class="ml-2">Add Payment</b></h1>
           </div>
           </div>
     <form [formGroup]="paymentForm">
@@ -28,7 +31,7 @@
           <div class="form-outline mb-2 col">
             <label class="selectCustomer required" for="amount" name="amount">Amount Received </label>
             <input id="amount" placeholder="Amount Received" formControlName="amount"
-              class="form-control form-control-lg" type="number">
+              class="form-control form-control-lg" type="number" change="updateNewAmounts()">
           </div>
           <div class="form-outline mb-2 col">
             <label class="selectCustomer required" for="paymentdate" name="paymentdate">Payment Date </label>
@@ -138,8 +141,8 @@
         </div>
       </div>
       <div class="form-group">
-        <button type="button" class="btn btn-light btn-lg ml-2">Cancel</button>
-        <button type="submit" class="btn btn-primary btn-lg" (click)="onSubmit()">Save</button>
+        <button type="button" class="btn  btn-light btn-lg ml-2 border mr-2">Cancel</button>
+        <button type="submit" class="btn button btn-lg" (click)="onSubmit()">Save</button>
       </div>
     </form>
   </div>

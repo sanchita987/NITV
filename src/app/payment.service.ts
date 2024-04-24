@@ -13,6 +13,7 @@ export class PaymentService {
   constructor(private http: HttpClient) { }
 
   getpayment() {
+    console.log("payment")
     return this.http.get<any[]>(environment.apiUrl + 'payment').pipe(
       map((data: any) => {
         data['data']['items'].forEach((element: any) => {
@@ -22,16 +23,41 @@ export class PaymentService {
       })
     );
   }
+  getPayment(id :number) {
+    return this.http.get<any[]>( `${environment.apiUrl}payment/${id}`, {
+    });
+  }
+  getPay(params: { filter: string, search: string, page: number, sort_order: string }): Observable<any> {
+    const { filter, search, page, sort_order } = params;
+    const paramsObj = new HttpParams()
+      .set('filter', filter)
+      .set('search', search)
+      .set('page', page.toString())
+      .set('sort_order', sort_order);
+
+    return this.http.get<any[]>(environment.apiUrl + 'payment', {
+      params: paramsObj
+    }).pipe(
+      map((response: any) => {
+        response['data']['items'].forEach((element: any) => {
+          // You can perform any mapping or modification here if needed
+          element.text = element.status ? 'Success' : 'Failed';
+        });
+        return response;
+      })
+    );
+  }
+
   getPayments(customerId: number): Observable<any[]> {
-    return this.http.get<any[]>(environment.apiUrl + 'payment', { params: { customer_id: customerId.toString() } }).pipe(
-      map((data: any) => {
-        return data;
-      }),
+    let params = new HttpParams()
+      .set('customer_id', customerId)  
+    return this.http.get<any[]>(environment.apiUrl + 'payment', { params }).pipe(
       catchError(error => {
         throw 'Error in retrieving payment data: ' + error;
       })
     );
   }
+  
   getPendingpayments(customerId: number): Observable<any[]> {
     return this.http.get<any[]>(environment.apiUrl + 'pending_payments', { params: { customer_id: customerId.toString() } }).pipe(
       map((data: any) => {

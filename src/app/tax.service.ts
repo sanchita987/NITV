@@ -11,7 +11,11 @@ export class TaxService {
   private apiUrl = environment.apiUrl;
   constructor(private http: HttpClient) { }
 
-  gettax() {
+  gettax(id: number) {
+    return this.http.get<any[]>(`${this.apiUrl}tax/${id}`, {
+    });
+  }
+  getTax() {
     return this.http.get<any[]>(`${this.apiUrl}tax`, {
       //params: { page: 1 },
     });
@@ -20,10 +24,14 @@ export class TaxService {
     console.warn(registertax)
     return this.http.post<any>(`${this.apiUrl}tax`, registertax);
   }
+  updateTax(taxData: any, id: number): Observable<any> {
+    // Assuming you have an API endpoint for updating tax, adjust this as needed
+    const apiUrl = `${this.apiUrl}tax/${id}`;
+    return this.http.put(apiUrl, taxData);
+  }
+
+
 }
-
-
-
 
 
 

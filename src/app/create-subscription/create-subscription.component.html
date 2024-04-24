@@ -1,12 +1,15 @@
 <div class="mt-5  ml-4 mr-auto">
   <div class="row ">
     <div class="row align-items-center justify-content-end mb-2">
-      <div class="col-auto mr-auto mt-2 ">
+      <div class="col-auto mr-auto mt-2">
           <div class="form-group-0">
-            <h2> <img src="assets/images/left-arrow.png" routerLink="/admin/subscriptions" class="custom-img mr-4" alt="left-arrow"><b>Create Subscription</b></h2>
+            <h1> <button type="button" class="btn border p-1">
+              <img src="assets/images/back.png" routerLink="/admin/subscriptions"
+              class="custom-img" alt="left-arrow">
+          </button><b class="ml-2">Create Subscription</b></h1>
           </div>
         </div>
-    <form [formGroup]="subscriptionForm">
+    <form [formGroup]="subscriptionForm" class="mt-4">
       <div class="form-group mb-3">
         <div class="row">
           <div class="form-outline mb-2 col">
@@ -165,7 +168,7 @@
           </div>
         </div>
       </div>
-      <button type="button" class="btn btn-info" (click)="onSubscriptionRegister()">Submit </button>
+      <button type="button" class="btn button" (click)="onSubscriptionRegister()">Submit </button>
     </form>
   </div>
 </div>

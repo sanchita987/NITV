@@ -1,22 +1,61 @@
+
 thead th {
-    top: 0;
-    background-color: #FAFAFA;
-  }
-  
-  table th {
-    text-transform: uppercase;
-    font-size: 12px;
-  }
-  
-  .table td,
-  .table th {
-    border: none;
-  }
-  .table  tr {
-    border-bottom: 1px solid #ececec; 
-    padding:15px !important;
-  }
-  .image{
-    height:20px;
-    width:20px;
-  }
+  top: 0;
+  background-color: #FAFAFA;
+  text-transform: uppercase;
+  font-size: 12px;
+}
+.table td,
+.table th {
+  border: none;
+}
+.table tr {
+  border-bottom: 1px solid #ececec;
+  padding: 15px !important;
+}
+
+.image {
+  height: 20px;
+  width: 20px;
+}
+.search-icon {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  color: #aaa;
+  pointer-events: none; 
+}
+.form-control {
+  padding-left: 30px;
+}
+.dropdown-toggle {
+  border: none !important;
+  background-color: transparent !important;
+}
+
+.dropdown-icon {
+  cursor: pointer;
+}
+
+.dropdown-toggle .fas {
+  display: none;
+}
+.dropdown-item:hover{
+  color: rgb(50, 129, 220);
+}
+ .dropdown-item{
+ padding-top: 0rem;
+ padding-bottom: 0rem;
+ background-color: white;
+}
+th, tr {
+  width: 10%;
+  text-align: justify; 
+  padding-right:0%;
+}
+.table{
+  padding: 10px;
+  border-collapse: collapse;
+}
+

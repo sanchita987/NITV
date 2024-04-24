@@ -1,116 +1,163 @@
-
-<div class="row   p-0 pt-4 ">
+<div class="row p-0 pt-4 ">
     <div class="col-4">
-    <h2 class=" sticky-header mb-5 p-4">Payments
-        <span class="plus-sign">
-            <div class="dropdown">
-            <a href="#"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <img src="assets/images/dots.png" alt="Dashboard Image" class="image" >
-            </a>
-            <div class="dropdown-menu dropdown-menu-right">
-                <a class="dropdown-item" href="#">All</a>
-                <a class="dropdown-item" href="#">Success</a>
-                <a class="dropdown-item" href="#">Failure</a>
-            </div>
-          </div></span>
-        <span class="plus-sign mr-1">
-            <div class="form-group ml-2">
-                <button type="button" aria-label="plus" class="btn btn-primary" [routerLink]="['/admin/create-payment']">
-                    <i class="fa-solid fa-plus fa-2xs "></i>
-                </button>
-            </div>
-          </span>
-    </h2>
-    <div class="padding-top">
-        <div class="border payment-table "> 
-        <div *ngFor="let item of payments" class="d-flex justify-content-between border-bottom mt-3">
-            <div class="col">
-                <p class="text-start"><input type="checkbox" aria-label="checkbox" class="mr-1"><strong>{{ item.customer?.first_name }}</strong></p>
-                <p class="text-start fw-light">{{ item.paid_at }}</p>
-            </div>
-            <div class="col">
-                <p class="text-end"><strong>¥{{ item.amount }}</strong></p>
-                <p class="text-end fw-light">cash</p>
-            </div>
-        </div>
-        <p class="ml-1"><strong>Total count: {{ payments.length }}</strong></p>
-        <br>
-        </div>
-    </div>
-
-        
-</div>
-    <div class="col-8  pt-5 pl-0" >
-        <h1 ><img src="assets/images/left-arrow.png" routerLink="/admin/payment" class="custom-img mr-4" alt="left-arrow"><strong>{{ payment.customer?.first_name }} {{ payment.customer?.last_name }}</strong></h1>
-        <div class="border-top thick-border rounded-top" >
-        <div class="border rounded p-5">
-            <p class="fw-light">NEW IT VENTURE CORPORATION</p>
-            <p class="fw-light">Kopo Yamato Bldg 2F, Tateishi 5-24-8 <br> Katsushika-Ku, Tokyo 124-0012</p>
-            <h1 class=" m-5 text-center"><strong>PAYMENT RECEIPT</strong></h1>
-            <div class="container">
-                <div class="row">
-                    
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="mb-4">
-                        <p><strong>Billed To:</strong></p>
-                        <p><strong>{{ payment.customer?.first_name }} {{ payment.customer?.last_name }}</strong></p>
-                        <p class="fw-light"> {{ payment.customer?.email }}</p>
-                        <p class="fw-light"> {{ payment.customer?.phone }}</p>
+        <h2 class=" sticky-header mb-0 p-2 mt-4">Payments
+            <span class="plus-sign">
+                <div class="dropdown">
+                    <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img src="assets/images/dots.png" alt="Dashboard Image" class="image">
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <a class="dropdown-item" href="#">All</a>
+                        <a class="dropdown-item" href="#">Success</a>
+                        <a class="dropdown-item" href="#">Failure</a>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="border ml-5" style=" background-color:#f7f7fa;">
-                        <h4 class="text-center">Payment Received</h4>
-                        <div class="text-center">
-                            <h1 style="color:rgb(57, 110, 255);">¥{{ payment.amount}}</h1>
+            </span>
+            <span class="plus-sign mr-1">
+                <div class="form-group ml-2">
+                    <button type="button" aria-label="plus" class="btn button"
+                        [routerLink]="['/admin/create-payment']">
+                        +
+                    </button>
+                </div>
+            </span>
+        </h2>
+        <div class="padding-top">
+            <div class="border payment-table mt-3">
+                <div *ngFor="let item of payments" class="d-flex justify-content-between border-bottom mt-3">
+                    <div class="col">
+                        <p class="text-start"><input type="checkbox" aria-label="checkbox" class="mr-1"><strong>{{
+                                item.customer?.first_name }}</strong></p>
+                        <p class="text-start fw-light">{{ item.paid_at }}</p>
+                    </div>
+                    <div class="col">
+                        <p class="text-end"><strong>¥{{ item.amount }}</strong></p>
+                        <p class="text-end fw-light">cash</p>
+                    </div>
+                </div>
+                <p class="ml-1"><strong>Total count: {{ payments.length }}</strong></p>
+                <br>
+            </div>
+        </div>
+
+
+    </div>
+    <div class="col-8  pt-4 pl-0">
+    <div class="container border-bottom">
+            <div class="row align-items-center justify-content-end p-o">
+                <div class="col-auto mr-auto mt-2 ">
+                    <div class="form-group-0">
+                        <div class="col-auto mr-auto  pl-0">
+                            <h1><button type="button" class="btn border p-1">
+                                    <img src="assets/images/back.png" routerLink="/admin/payment" class="custom-img"
+                                        alt="left-arrow">
+                                </button><b class="text-capitalize text-start ml-1"><span
+                                        class="">{{ payment.customer?.first_name }} {{ payment.customer?.last_name }}</span></b>
+                            </h1>
                         </div>
                     </div>
                 </div>
-            </div>
-            
-            <div class="row">
-                <div class="col-auto">
-                    <div class="d-flex justify-content-center border">
-                        <div class="order-1 p-2 border-left no-wrap"><p class="fw-light">Payment Date</p><strong>{{ payment.paid_at }}</strong></div>
-                        <div class="order-2 p-2 border-left no-wrap"><p>Payment Number</p><strong >{{ payment.payment_number }}</strong></div>
-                        <div class="order-3 p-2 border-left no-wrap"><p>Payment Mode</p><strong>{{ payment.mode}}</strong></div>
-                        <div class="order-4 p-2 border-left no-wrap"><p>Received From</p><strong>{{ payment.customer?.first_name }} {{payment.customer?.last_name }}</strong>
-                        </div>
-                      </div>
+                <div class="col-auto px-1">
+                    <div class="form-group mr-0">
+                        <img src="assets/images/pencilEdit.svg" alt="sunlight" class="custom-img">
                     </div>
                 </div>
-                <div class="col">
-                    <table class="table mt-4">
-                        <thead>
-                            <tr>
-                                <th scope="col">No</th>
-                                <th scope="col">Invoice No</th>
-                                <th scope="col">Invoice Date</th>
-                                <th scope="col">Invoice Amount</th>
-                                <th scope="col">Payment Amount</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let invoice of invoices;let i=index">
-                                <td>{{ i + 1}}</td>
-                                <td>{{ invoice.number}}</td>
-                                <td>{{ invoice.invoice_date}}</td>
-                                <td>{{ invoice.total}}</td>
-                                <td>{{ invoice.total}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <div class="col-auto px-1 ml-3">
+                    <div class="form-group mr-0">
+                        <img src="assets/images/upload.svg" alt="sunlight" class="custom-img">
+                    </div>
                 </div>
-            <p>Email a “thank you” note for this payment</p>
-            <div class="text-center mt-4">
-                <button class="btn mr-2">Download</button>
-                <button class="btn btn-primary mr-2">Send Receipt</button>
+                <div class="col-auto px-1 ml-3">
+                    <div class="form-group mr-0">
+                        <img src="assets/images/printer.svg" alt="sunlight" class="custom-img">
+                    </div>
+                </div>
+                <div class="col-auto px-1 ml-3 mr-2">
+                    <div class="form-group mr-0">
+                        <img src="assets/images/delete.svg" alt="sunlight" class="custom-img">
+                    </div>
+                </div>
             </div>
         </div>
+        <div class="p-4 background-color">
+            <div id="pdfdownload">
+                <div class="border rounded p-4 no-background-color">
+                    <p class="fw-light">NEW IT VENTURE CORPORATION</p>
+                    <p class="fw-light">Kopo Yamato Bldg 2F, Tateishi 5-24-8 <br> Katsushika-Ku, Tokyo 124-0012</p>
+                    <h1 class=" m-5 text-center"><strong>PAYMENT RECEIPT</strong></h1>
+                    <div class="container">
+                        <div class="row">
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <p><strong>Billed To:</strong></p>
+                                <p><strong>{{ payment.customer?.first_name }} {{ payment.customer?.last_name }}</strong>
+                                </p>
+                                <p class="fw-light"> {{ payment.customer?.email }}</p>
+                                <p class="fw-light"> {{ payment.customer?.phone }}</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="border ml-5" style=" background-color:#f7f7fa;">
+                                <h4 class="text-center">Payment Received</h4>
+                                <div class="text-center">
+                                    <h1 style="color:rgb(57, 110, 255);">¥{{ payment.amount}}</h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-auto">
+                            <div class="d-flex justify-content-center border">
+                                <div class="order-1 p-2 border-left no-wrap">
+                                    <p class="fw-light">Payment Date</p><strong>{{ payment.paid_at }}</strong>
+                                </div>
+                                <div class="order-2 p-2 border-left no-wrap">
+                                    <p>Payment Number</p><strong>{{ payment.payment_number }}</strong>
+                                </div>
+                                <div class="order-3 p-2 border-left no-wrap">
+                                    <p>Payment Mode</p><strong>{{ payment.mode}}</strong>
+                                </div>
+                                <div class="order-4 p-2 border-left no-wrap">
+                                    <p>Received From</p><strong>{{ payment.customer?.first_name }}
+                                        {{payment.customer?.last_name }}</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <table class="table mt-4">
+                            <thead>
+                                <tr>
+                                    <th scope="col">No</th>
+                                    <th scope="col">Invoice No</th>
+                                    <th scope="col">Invoice Date</th>
+                                    <th scope="col">Invoice Amount</th>
+                                    <th scope="col">Payment Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let invoice of invoices;let i=index">
+                                    <td>{{ i + 1}}</td>
+                                    <td>{{ invoice.number}}</td>
+                                    <td>{{ invoice.invoice_date}}</td>
+                                    <td>{{ invoice.total}}</td>
+                                    <td>{{ invoice.total}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p><input type="checkbox" aria-label="checkbox" class="mr-2">Email a “thank you” note for this payment</p>
+                    <div class="text-center mt-4">
+                        <button class="btn border mr-2" (click)="downloadPdf()">Download</button>
+                        <button class="btn button mr-2">Send Receipt</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
-

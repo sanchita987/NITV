@@ -1,55 +1,68 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders,HttpParams } from '@angular/common/http';
 import { Observable,map } from 'rxjs';
-import { AccessTokenInterface, HttpHeadersInterface } from './http-interfaces';
+import { environment } from '../environments/environment.development';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class InvoiceServiceService {
-
+  private apiUrl = environment.apiUrl;
   constructor(private http: HttpClient) { }
-  private getHeaders(): HttpHeadersInterface {
-    const headers = new HttpHeaders({
-      'Authorization': 'Bearer ' + localStorage.getItem('access_token')
-    });
 
-    return headers;
-  }
 
-  getInvoice(data: any) {
-    let customer_id = 0;
+  getInvo(data: any): Observable<any[]> {
+    let params = new HttpParams();
     if (data.customer_id) {
-      customer_id = data.customer_id
+      params = params.set('customer_id', data.customer_id.toString());
     }
-    return this.http.get<any[]>('https://nitvcrmapi.truestreamz.com/api/v1/invoice?customer_id=' + customer_id, {
-      headers: this.getHeaders()
-    })
-    .pipe(
-      map((data: any) => {
-        data['data']['items'].forEach((element: any) => {
+
+    return this.http.get<any[]>(environment.apiUrl + 'invoice', {
+      params: params
+    }).pipe(
+      map((response: any) => {
+        response.data.items.forEach((element: any) => {
           element.text = element.status ? 'Paid' : 'overdue';
         });
-        return data;
+        return response;
       })
     );
   }
+
+  getInvoice(params: { filter: string, search: string, page: number, sort_order: string }): Observable<any> {
+    const { filter, search, page, sort_order } = params;
+    const paramsObj = new HttpParams()
+      .set('filter', filter)
+      .set('search', search)
+      .set('page', page.toString())
+      .set('desc', sort_order);
+
+    return this.http.get<any[]>(environment.apiUrl + 'invoice', {
+      params: paramsObj
+    }).pipe(
+      map((response: any) => {
+        response['data']['items'].forEach((element: any) => {
+          element.text = element.status ? 'Paid' : 'Overdue';
+        });
+        return response;
+      })
+    );
+  }
+  
   getInvoices(id: number) {
-    return this.http.get<any>('https://nitvcrmapi.truestreamz.com/api/v1/invoice/' + id, {
-      headers: this.getHeaders()
-    });
+    return this.http.get<any>( `${environment.apiUrl}invoice/${id}`, {
+    })
   }
 
   getInv(subscriptionId: number) {
-    return this.http.get<any>('https://nitvcrmapi.truestreamz.com/api/v1/invoice?subscription_id=' + subscriptionId, {
-      headers: this.getHeaders()
+    return this.http.get<any>('environment.apiUrl + invoice?subscription_id=' + subscriptionId, {
     });
   }
 
-  private registerUrl = 'https://nitvcrmapi.truestreamz.com/api/v1/invoice';
+  private registerUrl = environment.apiUrl + 'invoice';
   register(data: any): Observable<any> {
-    return this.http.post(this.registerUrl, data, { headers: this.getHeaders() });
+    return this.http.post(this.registerUrl, data);
   }
 }
 

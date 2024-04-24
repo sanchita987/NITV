@@ -9,6 +9,7 @@ import { Validators } from '@angular/forms';
 import { PaymentService } from '../payment.service';
 import { SubscriptionService } from '../subscription.service';
 import { finalize } from 'rxjs';
+import { Location } from '@angular/common';
 
 declare const $: any;
 @Component({
@@ -39,8 +40,11 @@ export class CustomerDetailComponent {
   commentForm: any;
   loading: boolean = true;
   commentSuccessful: boolean = false;
+  customerId: number = 0;
+  activeItemId: string = '';
+  activeCustomerId: string = '';
 
-  constructor(private customerService: CustomerService, private data: CustomerService,
+  constructor(private customerService: CustomerService, private data: CustomerService, private location: Location,
     private route: ActivatedRoute, private router: Router,
     private inoviceService: InvoiceServiceService,
     private paymentService: PaymentService,
@@ -92,8 +96,7 @@ export class CustomerDetailComponent {
     $('#exampleModalLong').modal('show');
   }
 
-
-  updateContact(): void {
+ updateContact(): void {
 
     // this.customerService.updateContact(this.cid, this.contact_id, this.contactForm.value).subscribe(
     //   (response) => {
@@ -137,7 +140,7 @@ export class CustomerDetailComponent {
       this.cid = data['id'];
 
       // Fetch invoice data
-      this.inoviceService.getInvoice({ customer_id: this.cid }).subscribe((res: any) => {
+      this.inoviceService.getInvo({ customer_id: this.cid }).subscribe((res: any) => {
         this.invoices = res['data'];
         // console.log('Invoices:', this.invoices);
         //payment data
@@ -172,15 +175,13 @@ export class CustomerDetailComponent {
   }
 
   fetchCustomers(filter: string): void {
-    this.loading = true; 
+    this.loading = true;
 
     this.data.getCusto(filter)
       .pipe(
         finalize(() => {
           this.loading = false;
-        })
-      )
-      .subscribe({
+        })).subscribe({
         next: (response: any) => {
           if (response.status) {
             this.customers = response.data.items;
@@ -194,7 +195,22 @@ export class CustomerDetailComponent {
         }
       });
   }
-  filterCustomers(filter: string): void {
+  fetchCustomerData(customerId: number): void {
+    this.customerService.getCustomer(customerId).subscribe((response: any) => {
+      console.log(response, "response");
+      this.customer = response['data'];
+      this.activeCustomerId = this.customer.id; // Update active customer ID if needed
+      // console.log('active customer id:', this.customer.id);
+    });
+  }
+  updateCustomerId(newCustomerId: string): void {
+    this.activeCustomerId = newCustomerId;
+    this.customerId = parseInt(newCustomerId, 10);
+    this.fetchCustomerData(this.customerId);
+    this.location.replaceState('/admin/customers/' + this.customerId);
+  }
+
+ filterCustomers(filter: string): void {
     this.fetchCustomers(filter);
   }
   switchSection(section: string): void {
@@ -213,7 +229,6 @@ export class CustomerDetailComponent {
       customer_id: customerId,
       body: comment
     };
-  
     this.paymentService.postComment(commentData)
       .subscribe({
         next: (response: any) => {
@@ -222,7 +237,7 @@ export class CustomerDetailComponent {
             // console.log('Response from postComment:', this.Customercomments);
             this.commentForm.patchValue({ body: '' });
             this.commentSuccessful = true;
-            setTimeout(() => {this.commentSuccessful = false; }, 500); 
+            setTimeout(() => { this.commentSuccessful = false; }, 500);
           } else {
             console.error('Error adding comment:', response.message);
           }
@@ -232,10 +247,7 @@ export class CustomerDetailComponent {
         }
       });
   }
-  
-  
-
-  deleteComment(commentId: number) {
+ deleteComment(commentId: number) {
     this.paymentService.deleteComment(commentId)
       .subscribe({
         next: (response: any) => {
@@ -253,7 +265,6 @@ export class CustomerDetailComponent {
         }
       });
   }
-
 
   get email() {
     return this.contactForm.get('email');

@@ -2,15 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
 import { FormsModule, Validators } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
 import { ReactiveFormsModule, } from '@angular/forms';
 import { CustomerService } from '../customer.service';
 import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatInputModule } from '@angular/material/input';
-import { MatIconModule } from '@angular/material/icon';
-import { map, startWith } from 'rxjs/operators';
-import { Observable, of } from 'rxjs';
 import { MatOptionModule } from '@angular/material/core';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 
@@ -22,6 +18,7 @@ import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
   styleUrls: ['./customer-register.component.css'],
 })
 export class CustomerRegisterComponent implements OnInit {
+  apicall:boolean = false;
   selectedFrontFile: File | null = null;
   selectedBackFile: File | null = null;
   frontPreview: string | ArrayBuffer | null = null;
@@ -150,10 +147,7 @@ filterAddresses(event: Event): void {
   );
 }
 
-
-
-
- onPostalCodeChange() {
+onPostalCodeChange() {
     const postalCode = this.customer_registerForm.get('postal_code')?.value;
     if (postalCode) {
       this.customerservice.getPostalCodeData(postalCode).subscribe({
@@ -175,7 +169,7 @@ filterAddresses(event: Event): void {
     if (!this.customer_registerForm.valid) {
       return;
     }
-
+this.apicall=true;
     if (this.selectedFrontFile && this.selectedBackFile) {
       this.customerservice.register(
         this.customer_registerForm.value,
@@ -184,6 +178,7 @@ filterAddresses(event: Event): void {
       ).subscribe({
         next: (response) => {
           this.customer_registerResponse = response;
+          this.apicall=false;
           console.log('Customer Register successful:', response);
           this.route.navigate(['admin/customer']);
         },
@@ -239,11 +234,14 @@ filterAddresses(event: Event): void {
     reader.readAsDataURL(file);
   }
   discardFrontPhoto() {
-    this.frontPreview = null;
-    this.selectedFrontFile = null;
-    const residenceCardFrontControl = this.customer_registerForm.get('residence_card_front');
-    if (residenceCardFrontControl) {
-      residenceCardFrontControl.setValue(null);
+    const isConfirm = confirm ("Are sure you want to delete?") ;
+    if (isConfirm){
+      this.frontPreview = null;
+      this.selectedFrontFile = null;
+      const residenceCardFrontControl = this.customer_registerForm.get('residence_card_front');
+      if (residenceCardFrontControl) {
+        residenceCardFrontControl.setValue(null);
+      }
     }
   }
   discardBackPhoto() {

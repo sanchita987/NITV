@@ -2,12 +2,10 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router, ActivatedRoute } from '@angular/router';
 import { Validators } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
 import { ReactiveFormsModule, FormBuilder } from '@angular/forms';
-import { CustomerService } from '../customer.service';
-import { FormGroup } from '@angular/forms';
 import { UserService } from '../user.service';
-import { NgForm } from '@angular/forms';
+
+
 @Component({
   selector: 'app-user-update',
   standalone: true,
@@ -55,27 +53,21 @@ export class UserUpdateComponent {
   onUpdate(): void {
     console.log(this.registerForm.value);
     if (!this.registerForm.valid) {
-      return;
+      this.userserviceservice.updateUser(this.user_id, this.registerForm.value).subscribe({
+        next: (response) => {
+          console.log('User updated successfully', response);
+          this.registerResponse = response;
+          this.router.navigate(['admin/user']);
+        },
+        error: (error) => {
+          console.error('Error updating user', error);
+          this.errorResponse = 'Error';
+        }
+      });
     }
-  
-    this.updateUser(); 
-  }
-  
-  updateUser(): void {
-    this.userserviceservice.updateUser(this.user_id, this.registerForm.value).subscribe(
-      (response) => {
-        console.log('User updated successfully', response);
-        this.registerResponse = response;
-        this.router.navigate(['admin/user']);
-      },
-      (error) => {
-        console.error('Error updating user', error);
-        this.errorResponse = 'Error';
-      }
-    );
-  }
-  
-   get name() {
+}
+
+get name() {
     return this.registerForm.get('name')
   }
   get company() {

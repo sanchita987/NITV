@@ -26,6 +26,7 @@ export class CreatePaymentComponent {
   optionSelected: boolean = false;
   hasInvoices: boolean = false;
   amountReceived: number | undefined;
+  
   constructor(
     private data: PaymentService,
     private router: Router,

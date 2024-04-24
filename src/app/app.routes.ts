@@ -34,6 +34,9 @@ import {materialmodule} from './materials-module.service'
 import { PaymentDetailComponent } from './payment-detail/payment-detail.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { SubscriptionDetailComponent } from './subscription-detail/subscription-detail.component';
+import { PaymentUpdateComponent } from './payment-update/payment-update.component';
+import { TaxupdateComponent } from './taxupdate/taxupdate.component';
+import { InventoriesComponent } from './inventories/inventories.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -53,11 +56,14 @@ export const routes: Routes = [
             { path: 'subscriptions', component: SubscriptionsComponent },
             { path: 'subscriptions/:id', component: SubscriptionDetailComponent },
            { path: 'customer/:id/update', component: CustomerUpdateComponent },
+           { path: 'payment/:id/update', component: PaymentUpdateComponent },
+           { path: 'tax/:id/update', component: TaxupdateComponent },
             { path: 'user', component: UserComponent },
-            { path: 'payment', component: PaymentComponent },
             { path: 'payment/:id', component: PaymentDetailComponent },
+            { path: 'payment', component: PaymentComponent },
             { path: 'create-payment', component: CreatePaymentComponent},
             { path: 'create-tax', component: CreateTaxComponent},
+            { path: 'inventories', component: InventoriesComponent },
             { path: 'create-subscription', component: createSubscriptionComponent },
             { path: 'products', component: ProductsComponent },
             { path: 'products/:id', component: ProductDetailComponent },

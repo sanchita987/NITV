@@ -8,17 +8,18 @@ import { environment } from '../environments/environment.development';
   providedIn: 'root'
 })
 export class ProductService {
-  private apiUrl = environment.apiUrl+="product";
+  private apiUrl = `${environment.apiUrl}product`;
 
 
   constructor(private http: HttpClient) { }
 
-  getProduct(filter: string, search: string, page: number): Observable<any[]> {
+  getProduct(filter: string, search: string, page: number, sortOrder:string): Observable<any[]> {
 
     const params = new HttpParams()
     .set('page', page.toString())
       .set('filter', filter)
       .set('search', search)
+      .set('sort_order', sortOrder)
     return this.http.get<any[]>(this.apiUrl, { params: params }).pipe(
       map((data: any) => {
         data['data']['items'].forEach((element: any) => {

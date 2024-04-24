@@ -1,24 +1,24 @@
 <div class="row mt-5">
     <div class="col-4">
-            <h2 class=" sticky-header mb-5 p-4">Invoices
-                <span class="plus-sign">
-                    <div class="dropdown">
-                        <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img src="assets/images/dots.png" alt="Dashboard Image" class="image">
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item" href="#">Number</a>
-                            <a class="dropdown-item" href="#">Invoice Date</a>
-                            <a class="dropdown-item" href="#">Invoice Due Date</a>
-                            <a class="dropdown-item" href="#">Status</a>
-                            <a class="dropdown-item" href="#">Total</a>
-                            <a class="dropdown-item" href="#">Due Amount</a>
-                        </div>
+        <h2 class=" sticky-header mb-0 p-2 mt-0">Invoices
+            <span class="plus-sign">
+                <div class="dropdown">
+                    <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img src="assets/images/dots.png" alt="Dashboard Image" class="image">
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <a class="dropdown-item" href="#">Number</a>
+                        <a class="dropdown-item" href="#">Invoice Date</a>
+                        <a class="dropdown-item" href="#">Invoice Due Date</a>
+                        <a class="dropdown-item" href="#">Status</a>
+                        <a class="dropdown-item" href="#">Total</a>
+                        <a class="dropdown-item" href="#">Due Amount</a>
                     </div>
-                </span>
-            </h2>
-            <div class="padding-top">
-                <div class="border invoice-table ">
+                </div>
+            </span>
+        </h2>
+        <div class="padding-top">
+            <div class="border invoice-table ">
                 <div *ngFor="let item of invoices" class="">
                     <div class=" d-flex border-bottom mt-3">
                         <div class="col">
@@ -40,22 +40,56 @@
                 </div>
                 <p class="ml-1"><strong>Total count: </strong></p>
                 <br>
-                </div>
             </div>
+        </div>
     </div>
 
-    <div class="col-8  pt-5 pl-0">
-        <h1><img src="assets/images/left-arrow.png" routerLink="/admin/invoice" class="custom-img mr-4"
-                alt="left-arrow"><strong>{{invoice.number}}</strong></h1>
+    <div class="col-8 pt-3 pl-0">
+        <div class="container border-bottom">
+            <div class="row align-items-center justify-content-end p-o">
+                <div class="col-auto mr-auto mt-2 ">
+                    <div class="form-group-0">
+                        <div class="col-auto mr-auto  pl-0">
+                            <h1><button type="button" class="btn border p-1">
+                                    <img src="assets/images/back.png" routerLink="/admin/invoice" class="custom-img"
+                                        alt="left-arrow">
+                                </button><b class="text-capitalize text-start ml-1"><span
+                                        class="">{{invoice.number}}</span></b>
+                            </h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-auto px-1">
+                    <div class="form-group mr-0">
+                        <img src="assets/images/pencilEdit.svg" alt="sunlight" class="custom-img">
+                    </div>
+                </div>
+                <div class="col-auto px-1 ml-3">
+                    <div class="form-group mr-0">
+                        <img src="assets/images/upload.svg" alt="sunlight" class="custom-img">
+                    </div>
+                </div>
+                <div class="col-auto px-1 ml-3">
+                    <div class="form-group mr-0">
+                        <img src="assets/images/printer.svg" alt="sunlight" class="custom-img">
+                    </div>
+                </div>
+                <div class="col-auto px-1 ml-3 mr-2">
+                    <div class="form-group mr-0">
+                        <img src="assets/images/delete.svg" alt="sunlight" class="custom-img">
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="border-top thick-border rounded-top">
-            <div>
+            <div class="p-4 background-color">
                 <div class="accordion accordion-flush" id="accordionFlushExample">
                     <div class="accordion-item border">
                         <h2 class="accordion-header" id="flush-headingOne">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                                 data-bs-target="#flush-collapseOne" aria-expanded="false"
                                 aria-controls="flush-collapseOne">
-                                Payment Received<span class="text-info bg-light ml-1"> {{ payments.length }}</span>
+                                Payment Received<span class="text-info bg-light ml-3"> {{ payments.length }}</span>
                             </button>
                         </h2>
                         <div id="flush-collapseOne" class="accordion-collapse collapse"
@@ -84,94 +118,97 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="border rounded p-5 mt-3">
-                <div class="div">
-                    <p style="font-size: large;"><strong>Invoice</strong>
-                    </p>
-                    <span class="ml-2" style="float: right;"
-                        [ngClass]="{'text-success': invoice.status === 'paid',  'text-warning': invoice.status === 'partially_paid', 'text-danger': invoice.status === 'overdue', 'text-info': invoice.status === 'sent'}"
-                        class="badge bg-light fw-bold">
-                        {{ invoice.status_description }}
-                    </span>
-                    <span class="ml-2" style="float: right;">
-                        {{invoice.status}}</span>
-                    <span style="float: right;">{{invoice.number}}</span>
-                </div>
-                <p class="fw-light mb-0">NEW IT VENTURE CORPORATION</p>
-                <p class="fw-light">Kopo Yamato Bldg 2F, Tateishi 5-24-8 <br> Katsushika-Ku, Tokyo 124-0012</p>
-                <div class="container">
-                    <div class="row">
+                <div id="pdfdownload">
+                    <div class="border rounded p-4 no-background-color mt-4">
+                        <div class="div">
+                            <p style="font-size: large;"><strong>Invoice</strong>
+                            </p>
+                            <span class="ml-2 text-capitalize bg-light" [ngClass]="{'text-success': invoice.status === 'paid',  'text-warning': invoice.status === 'partially_paid', 'text-danger':invoice.status === 'overdue', 'text-info': invoice.status === 'sent'}" style="float: right;">
+                                {{invoice.status}}</span>
+                            <span style="float: right;">{{invoice.number}}</span>
+                        </div>
+                        <p class="fw-light mb-0">NEW IT VENTURE CORPORATION</p>
+                        <p class="fw-light">Kopo Yamato Bldg 2F, Tateishi 5-24-8 <br> Katsushika-Ku, Tokyo 124-0012
+                        </p>
+                        <div class="container">
+                            <div class="row">
 
-                    </div>
-                </div>
-                <div class="row justify-content-between">
-                    <div class="col-md-6">
-                        <div class="mb-4 mt-5">
-                            <p><strong>Billed To:</strong></p>
-                            <p class="mb-0"><strong>{{ invoice.customer?.last_name }} {{ invoice.customer?.first_name
-                                    }}</strong></p>
-                            <p class="fw-light mb-0">{{ invoice.customer?.address }}</p>
-                            <p class="fw-light mb-0">{{ invoice.customer?.email }}</p>
-                            <p class="fw-light mb-0">{{ invoice.customer?.mobile }}</p>
+                            </div>
+                        </div>
+                        <div class="row justify-content-between">
+                            <div class="col-md-6">
+                                <div class="mb-4 mt-5">
+                                    <p><strong>Billed To:</strong></p>
+                                    <p class="mb-0"><strong>{{ invoice.customer?.last_name }} {{
+                                            invoice.customer?.first_name
+                                            }}</strong></p>
+                                    <p class="fw-light mb-0">{{ invoice.customer?.address }}</p>
+                                    <p class="fw-light mb-0">{{ invoice.customer?.email }}</p>
+                                    <p class="fw-light mb-0">{{ invoice.customer?.mobile }}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6 text-md-right">
+                                <div class="mb-4 mt-5">
+                                    <p><strong>Invoice Date:</strong></p>
+                                    <p class="fw-light mb-0 text-end">{{ invoice.invoice_date }}</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <p class="mt-3 mb-0"><strong>Order Summary</strong></p>
+                        <div class="col">
+                            <table class="table ">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Description</th>
+                                        <th scope="col">Qty</th>
+                                        <th scope="col">Unit Price</th>
+                                        <th scope="col">Tax rate</th>
+                                        <th scope="col">Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let charge of charges">
+                                        <td>{{ charge.name }}</td>
+                                        <td>{{ charge.description }}</td>
+                                        <td>{{ charge.quantity }}</td>
+                                        <td>{{ charge.unit_price }}</td>
+                                        <td>{{ charge.tax_rate }}</td>
+                                        <td>{{ charge.total }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="row">
+                            <div class="col-xl-8"></div>
+                            <div class="col-xl-4">
+                                <ul class="list-unstyled">
+                                    <li class="text-muted ms-3"><span class="text-black">SubTotal:</span>¥
+                                        {{invoice.sub_total}}
+                                    </li>
+                                    <li class="text-muted ms-3 mt-2"><span class="text-black no-wrap">Total
+                                            discount:</span>¥
+                                        {{invoice.total_discount}}</li>
+                                    <li class="text-muted ms-3 mt-2"><span class="text-black no-wrap">Tax
+                                            amount:</span>¥
+                                        {{invoice.total_tax_amount}}</li>
+                                    <li class="text-black ms-3 mt-2"><span class="text-muted text-nowrap">Total:</span>¥
+                                        {{invoice.total}}</li>
+                                    <li class="text-muted ms-3 mt-2"><span class="text-black no-wrap">Payment made:
+                                            -</span>¥
+                                        {{invoice.payment_made}}</li>
+                                    <li class="text-muted ms-3 mt-2"><span class="text-black no-wrap">Due
+                                            Amount:</span>¥
+                                        {{invoice.due_amount}}</li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-md-6 text-md-right">
-                        <div class="mb-4 mt-5">
-                            <p><strong>Invoice Date:</strong></p>
-                            <p class="fw-light mb-0 text-end">{{ invoice.invoice_date }}</p>
-                        </div>
-                    </div>
                 </div>
-
-                <p class="mt-3 mb-0"><strong>Order Summary</strong></p>
-                <div class="col">
-                    <table class="table ">
-                        <thead>
-                            <tr>
-                                <th scope="col">Name</th>
-                                <th scope="col">Description</th>
-                                <th scope="col">Qty</th>
-                                <th scope="col">Unit Price</th>
-                                <th scope="col">Tax rate</th>
-                                <th scope="col">Total</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let charge of charges">
-                                <td>{{ charge.name }}</td>
-                                <td>{{ charge.description }}</td>
-                                <td>{{ charge.quantity }}</td>
-                                <td>{{ charge.unit_price }}</td>
-                                <td>{{ charge.tax_rate }}</td>
-                                <td>{{ charge.total }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="row">
-                    <div class="col-xl-8"></div>
-                    <div class="col-xl-4">
-                        <ul class="list-unstyled">
-                            <li class="text-muted ms-3"><span class="text-black">SubTotal:</span>¥ {{invoice.sub_total}}
-                            </li>
-                            <li class="text-muted ms-3 mt-2"><span class="text-black no-wrap">Total discount:</span>¥
-                                {{invoice.total_discount}}</li>
-                            <li class="text-muted ms-3 mt-2"><span class="text-black no-wrap">Tax amount:</span>¥
-                                {{invoice.total_tax_amount}}</li>
-                            <li class="text-muted ms-3 mt-2"><span class="text-black no-wrap">Total:</span>¥
-                                {{invoice.total}}</li>
-                            <li class="text-muted ms-3 mt-2"><span class="text-black no-wrap">Payment made: -</span>¥
-                                {{invoice.payment_made}}</li>
-                            <li class="text-muted ms-3 mt-2"><span class="text-black no-wrap">Due Amount:</span>¥
-                                {{invoice.due_amount}}</li>
-                        </ul>
-                    </div>
-                </div>
-
                 <div class="text-center mt-4">
-                    <button class="btn mr-2">Download</button>
-                    <button class="btn btn-primary mr-2">Send Receipt</button>
+                    <button class="btn mr-2 border" (click)="downloadPdf()">Download</button>
+                    <button class="btn button mr-2">Send Receipt</button>
                 </div>
             </div>
         </div>

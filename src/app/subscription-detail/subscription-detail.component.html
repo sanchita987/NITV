@@ -1,6 +1,6 @@
 <div class="row p-0 pt-4 ">
     <div class="col-4">
-            <h2 class=" sticky-header mb-5 p-4">Subscriptions
+            <h2 class=" sticky-header mb-0 p-2 mt-3">Subscriptions
                 <span class="plus-sign">
                     <div class="dropdown">
                         <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -17,15 +17,15 @@
                 </span>
                 <span class="plus-sign mr-1">
                     <div class="form-group ml-2">
-                        <button type="button" aria-label="plus" class="btn btn-primary"
+                        <button type="button" aria-label="plus" class="btn button"
                             [routerLink]="['/admin/create-subscription']">
-                            <i class="fa-solid fa-plus fa-2xs "></i>
+                            +
                         </button>
                     </div>
                 </span>
             </h2>
             <div class="padding-top">
-                <div class="border customer-table">
+                <div class="border customer-table mt-3">
                 <div *ngFor="let subscription of subscriptions" class="">
                     <div class="d-flex  border-bottom mt-3">
                         <div class="col">
@@ -48,16 +48,60 @@
             </div>
             </div>
     </div>
-    <div class="col-8 table-responsive pt-5 pl-0">
-        <div class="col-auto mr-auto border-bottom pl-0">
-            <h1><img src="assets/images/left-arrow.png" routerLink="/admin/subscriptions" class="custom-img mr-4"
-                    alt="left-arrow"><strong class="text-capitalize text-start"><span class="">{{ subscriber.plan?.name
-                        }}</span></strong></h1>
+    <div class="col-8 table-responsive pt-4 pl-0">
+
+        <div class="container border-bottom pl-0">
+            <div class="row align-items-center justify-content-end p-o">
+                <div class="col-auto mr-auto mt-2 ">
+                    <div class="form-group-0">
+                        <div class="col-auto mr-auto  pl-0">
+                            <h1><button type="button" class="btn border p-1">
+                                <img src="assets/images/back.png" routerLink="/admin/subscriptions"
+                                class="custom-img" alt="left-arrow">
+                            </button><strong class="text-capitalize text-start ml-1"><span class="">{{ subscriber.plan?.name
+                            }}</span></strong>
+                            </h1>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-auto px-1">
+                    <div class="form-group mr-0">
+                    </div>
+                </div>
+                <div class="col-auto px-1">
+                    <div class="form-group mr-0">
+                        <button type="button" class="btn border">
+                            <i class="fas fa-edit mr-1"></i>Edit
+                        </button>
+                    </div>
+                </div>
+                <div class="col-auto px-1">
+                    <div class="form-group mr-0">
+                        <button type="button" class="btn button">
+                            + Add Plan
+                        </button>
+                    </div>
+                </div>
+                <div class="col-auto px-1">
+                    <div class="form-group mr-0">
+                            <div class="dropdown">
+                                <button type="button" aria-label="plus" class="btn border"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="assets/images/dots.png" alt="Dropdown image" class="image"></button>
+                                <div class="dropdown-menu dropdown-menu-right" style="padding: 0;">
+                                    <a class="dropdown-item"  href="#">All</a>
+                                    <a class="dropdown-item"  href="#">Active</a>
+                                    <a class="dropdown-item"  href="#">Inactive</a>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
         </div>
+
         <div class="row mt-0 mb-3">
             <nav class="navbar navbar-expand-lg ">
                 <div class="container border-bottom">
-                    <ul class="navbar-nav text-uppercase">
+                    <ul class="navbar-nav text-uppercase font-weight-bold">
                         <li class="nav-item">
                             <a class="nav-link" [ngClass]="{ 'active': section === 'overview' }"
                                 (click)="switchSection('overview')">Overview</a>

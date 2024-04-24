@@ -1,11 +1,10 @@
-<div class="row mt-5">
+<div class="row mt-4">
     <div class="table-responsive">
         <div class="col-12 overflow-y">
             <div class="bg-white">
                 <!-- Button trigger modal -->
                 <div class="container mt-4">
                     <div class="row align-items-center justify-content-end p-o">
-
                         <div class="col-auto mr-auto mt-2 ">
                             <div class="form-group-0">
                                 <h2><b>Products</b></h2>
@@ -34,21 +33,20 @@
                         </div>
                         <div class="col-auto px-1">
                             <div class="form-group mr-0">
-                                <button type="button" class="btn btn-primary" (click)="openModal({})">
-                                    <i class="fa-solid fa-plus mr-1"></i>Add new
+                                <button type="button" class="btn button" (click)="openModal({})">
+                                    + Add New
                                 </button>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <!-- Modal -->
+            <!-- Modal -->
                 <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog"
                     aria-labelledby="exampleModalLongTitle" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLongTitle">Add Product</h5>
+                                <h2 class="modal-title" id="exampleModalLongTitle">Add Product</h2>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -110,17 +108,18 @@
                                 </form>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
-                                <button type="button" class="btn btn-info" (click)="updateProduct()">Save
+                                <button type="button" class="btn border" (click)="closeModal()">Close</button>
+                                <button type="button" class="spinner-border spinner-border-sm"  class="btn button" (click)="updateProduct()" [disabled]="!productForm.valid">Save
                                     changes</button>
                             </div>
                         </div>
                     </div>
                 </div>
-                <table class="table  mb-0" *ngIf="product.data.items.length">
+                <table class="table  mb-4" *ngIf="product.data.items.length">
                     <thead class="sticky-header">
                         <tr>
-                            <th scope="col">Code</th>
+                            
+                            <th scope="col"><input type="checkbox" aria-label="checkbox" class="mr-3">Code</th>
                             <th scope="col">Name</th>
                             <th scope="col"> Plans</th>
                             <th scope="col">Addons</th>
@@ -132,8 +131,8 @@
                     <tbody>
                         <tr *ngFor="let item of product.data.items">
 
-                            <td>{{item.name}}</td>
-                            <td>{{item.code}}</td>
+                            <td><input type="checkbox" aria-label="checkbox" class="mr-3">{{truncateText(item.code) }}</td>
+                            <td>{{truncateText(item.name) }}</td>
                             <td>{{item.active_plan_count}}</td>
                             <td>{{item.active_addon_count}}</td>
                             <td>{{item.active_coupon_count}}</td>
@@ -145,9 +144,9 @@
                                     <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <img src="assets/images/dot.png" alt="Dashboard Image" class="image">
                                     </a>
-                                    <div class="dropdown-menu dropdown-menu-right">
-                                        <a class="dropdown-item" (click)="showModal(item)">Edit</a>
-                                        <a [routerLink]="['/admin/products', item.id]" class="dropdown-item">Detail</a>
+                                    <div class="dropdown-menu">
+                                        <a [routerLink]="['/admin/products', item.id]" class="dropdown-item">show</a>
+                                        <a [routerLink]="[]"  (click)="showModal(item)" class="dropdown-item">Edit</a>
                                     </div>
                                 </div>
                             </td>
@@ -167,12 +166,20 @@
             </div>
         </div>
     </div>
-    <div class="pagination mt-3">
-        <button (click)="loadPreviousPage()">Previous</button>
-        <span *ngFor="let page of getPageNumbers()">
-          <button (click)="loadPage(page)" [class.active]="currentPage === page">{{ page }}</button>
-        </span>
-        <button (click)="loadNextPage()">Next</button>
-      </div>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+          <li class="page-item" (click)="loadPreviousPage()">
+            <a class="page-link" [class.active]="currentPage === 1">Previous</a>
+          </li>
+          <ng-container *ngFor="let page of getPageNumbers()">
+            <li class="page-item">
+              <a class="page-link" (click)="loadPage(page)" [class.active]="currentPage === page">{{ page }}</a>
+            </li>
+          </ng-container>
+          <li class="page-item" (click)="loadNextPage()">
+            <a class="page-link" [class.active]="currentPage >3">Next</a>
+          </li>
+        </ul>
+      </nav>
 </div>
 <!--[routerLink]="['/admin/customer-register']"-->

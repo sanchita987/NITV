@@ -2,7 +2,7 @@
     border: 2px solid #0000006a; 
     border-radius: 1px; 
     width: 100%; 
-max-height:320px; 
+    max-height:320px; 
     padding: 50px;
   }
   thead th {
@@ -42,4 +42,11 @@ max-height:320px;
 }
 .white{
   background-color:#f1f2ff; height:200px; width:200px;
+}
+div{
+  overflow-x: hidden;
+}
+.font-size{
+  font-size: 40px;
+  font-weight: 1000;
 }

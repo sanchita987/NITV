@@ -37,14 +37,14 @@ export class LoginComponent {
     this.loginService.login(this.loginForm.value)
       .subscribe(
         (response) => {
-          // Handle successful login response
           this.loginResponse = response;
           console.log('Login successful:', response);
           localStorage.setItem ('access_token', response.access_token)
+          localStorage.setItem ('user_id', response.user.id)
           this.loginSuccessful = true;
           setTimeout(() => {
             this.route.navigate(['admin/dashboard']); // Navigate to dashboard after 500 seconds
-          }, 500);
+          }, 1000);
         },
         (error) => {
           console.log(error,"error")

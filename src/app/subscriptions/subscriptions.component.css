@@ -42,3 +42,20 @@ thead th {
     width:20px;
     height:20px;
   }
+  .dropdown-item:hover{
+    color: rgb(50, 129, 220);
+  }
+   .dropdown-item{
+   padding-top: 0rem;
+   padding-bottom: 0rem;
+   background-color: white;
+  }
+  thead th{
+   
+    text-align: left; 
+
+}
+.page-link.active {
+  color: #309FED;
+}
+

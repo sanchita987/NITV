@@ -23,3 +23,34 @@ thead th {
     height:20px;
     width:20px;
   }
+  .search-icon {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+    color: #aaa;
+    pointer-events: none; 
+  }
+  .form-control {
+    padding-left: 30px;
+  }
+  .dropdown-toggle {
+    border: none !important;
+    background-color: transparent !important;
+  }
+  
+  .dropdown-icon {
+    cursor: pointer;
+  }
+  
+  .dropdown-toggle .fas {
+    display: none;
+  }
+  .dropdown-item:hover{
+    color: rgb(50, 129, 220);
+  }
+   .dropdown-item{
+   padding-top: 0rem;
+   padding-bottom: 0rem;
+   background-color: white;
+  }

@@ -1,46 +1,52 @@
 <div class="container-fluid">
   <div class="row">
-    <div class="col-lg-2" [ngClass]="{'expanded': !isNavbarCollapsed}">
+    <div [ngClass]="{'col-md-2': !isNavbarCollapsed, 'col-md-1': isNavbarCollapsed}" class="navbar-box">
       <nav class="navbar navbar-expand-lg navbar-light bs-side-navbar" [ngClass]="{'collapsed': isNavbarCollapsed}">
-        <div class="navbar-box">
-        <div class="flex justify-center items-center mb-3 ml-3">
-          <img src="assets/images/companylogo.webp" routerLink="dashboard" alt="Company logo" class=" company-logo w-200" [ngClass]="{'shrink': isNavbarCollapsed}">
+        <div >
+          <div class="flex justify-center items-center mb-4 ml-3">
+            <img src="assets/images/companylogo.webp" routerLink="dashboard" alt="Company logo" style="max-width: 110px; height: auto; color: transparent" [ngClass]="{'shrink': isNavbarCollapsed}">
         </div>
-          <ul class="navbar-nav ml-auto">
+        <ul class="navbar-nav ml-2">
             <li class="nav-item mr-3 mb-2">
               <div class="nav-item mr-3 mb-2 d-flex align-items-center">
-                <img src="assets/images/dashboard.png" alt="Dashboard Image" class="dashboard-image" [ngClass]="{'blue-hover': isHovered}">
-                <a class="nav-link" [ngClass]="{'hide-content': isNavbarCollapsed}" routerLink="dashboard" routerLinkActive="active">Dashboard</a>
-              </div>
-            </li>
-            <li class="nav-item mr-3 mb-2">
-              <div class="nav-item mr-3 mb-2 d-flex align-items-center">
-                <img src="assets/images/box.png" alt="Customer Image" class="box-image" >
-                <a class="nav-link" [ngClass]="{'hide-content': isNavbarCollapsed}" routerLink="products" routerLinkActive="active">Products</a>
+                <img src="assets/images/dashboardLogo.svg" alt="Dashboard Image" routerLink="dashboard"  routerLinkActive="active">
+                <a class="nav-link" [ngClass]="{'hide-content': isNavbarCollapsed}" routerLink="dashboard" routerLinkActive="active"><span>Dashboard</span></a>
               </div>
             </li>
             <li class="nav-item mr-3 mb-2">
               <div class="nav-item mr-3 mb-2 d-flex align-items-center">
-                <img src="assets/images/c.png" alt="Customer Image" class="customer-image">
-                <a class="nav-link" [ngClass]="{'hide-content': isNavbarCollapsed}" routerLink="customer" routerLinkActive="active">Customers</a>
+                <img src="assets/images/productsLogo.svg" alt="Customer Image" class="box-image"routerLink="products" routerLinkActive="active" >
+                <a class="nav-link" [ngClass]="{'hide-content': isNavbarCollapsed}" routerLink="products" routerLinkActive="active"><span>Products</span></a>
+              </div>
+            </li>
+            <li class="nav-item mr-3 mb-2">
+              <div class="nav-item mr-3 mb-2 d-flex align-items-center">
+                <img src="assets/images/customersLogo.svg" alt="Customer Image" class="customer-image"routerLink="customer" routerLinkActive="active">
+                <a class="nav-link" [ngClass]="{'hide-content': isNavbarCollapsed}" routerLink="customer" routerLinkActive="active"><span>Customers</span></a>
+              </div>
+            </li>
+            <li class="nav-item ">
+              <div class="nav-item mr-3 mb-3 d-flex align-items-center">
+                <img src="assets/images/subscriptionsLogo.svg" alt="Customer Image" class="subscription-image"routerLink="subscriptions" routerLinkActive="active" >
+                <a class="nav-link" [ngClass]="{'hide-content': isNavbarCollapsed}" routerLink="subscriptions" routerLinkActive="active"><span>Subscriptions</span></a>
               </div>
             </li>
             <li class="nav-item mr-3 mb-2">
               <div class="nav-item mr-3 mb-3 d-flex align-items-center">
-                <img src="assets/images/subscription.jpg" alt="Customer Image" class="subscription-image" >
-                <a class="nav-link" [ngClass]="{'hide-content': isNavbarCollapsed}" routerLink="subscriptions" routerLinkActive="active">Subscriptions</a>
+                <img src="assets/images/invoicesLogo.svg" alt="Customer Image" class="invoice-image"routerLink="invoice" routerLinkActive="active">
+                <a class="nav-link" [ngClass]="{'hide-content': isNavbarCollapsed}" routerLink="invoice" routerLinkActive="active"><span>Invoices</span></a>
               </div>
             </li>
             <li class="nav-item mr-3 mb-2">
               <div class="nav-item mr-3 mb-3 d-flex align-items-center">
-                <img src="assets/images/invoicesLogo.svg" alt="Customer Image" class="invoice-image">
-                <a class="nav-link" [ngClass]="{'hide-content': isNavbarCollapsed}" routerLink="invoice" routerLinkActive="active">Invoices</a>
+                <img src="assets/images/paymentsLogo.svg" alt="Customer Image" class="payment-image" routerLink="payment" routerLinkActive="active">
+                <a class="nav-link" [ngClass]="{'hide-content': isNavbarCollapsed}" routerLink="payment" routerLinkActive="active"><span>Payments</span></a>
               </div>
             </li>
             <li class="nav-item mr-3 mb-2">
               <div class="nav-item mr-3 mb-3 d-flex align-items-center">
-                <img src="assets/images/payment.png" alt="Customer Image" class="payment-image">
-                <a class="nav-link" [ngClass]="{'hide-content': isNavbarCollapsed}" routerLink="payment" routerLinkActive="active">Payments</a>
+                <img src="assets/images/inventoriesLogo.svg" alt="Customer Image" class="payment-image" routerLink="inventories" routerLinkActive="active">
+                <a class="nav-link" [ngClass]="{'hide-content': isNavbarCollapsed}" routerLink="inventories" routerLinkActive="active"><span>Inventories</span></a>
               </div>
             </li>
            <!----<li class="nav-item mr-3 mb-2">
@@ -51,22 +57,22 @@
             </li>-->
             <li class="nav-item mr-3 mb-2">
               <div class="nav-item mr-3 mb-3 d-flex align-items-center">
-                <img src="assets/images/taxes.png" alt="Customer Image" class="tax-image">
-                <a class="nav-link" [ngClass]="{'hide-content': isNavbarCollapsed}" routerLink="tax" routerLinkActive="active">Taxes</a>
+                <img src="assets/images/taxesLogo.svg" alt="Customer Image" class="tax-image" routerLink="tax" routerLinkActive="active">
+                <a class="nav-link" [ngClass]="{'hide-content': isNavbarCollapsed}" routerLink="tax" routerLinkActive="active"><span>Taxes</span></a>
               </div>
             </li>
             <li class="nav-item mr-3 mb-2">
               <div class="nav-item mr-3 mb-3 d-flex align-items-center">
                 <img src="assets/images/reportLogo.svg" alt="Customer Image" class="tax-image">
-                <a class="nav-link" [ngClass]="{'hide-content': isNavbarCollapsed}"  >Report</a>
+                <a class="nav-link" [ngClass]="{'hide-content': isNavbarCollapsed}"><span>Report</span></a>
               </div>
             </li>
           </ul>
           </div>
       </nav>
     </div>
-    <div class="col-lg-10" [ngClass]="{'expanded-layout': !isNavbarCollapsed, 'collapsed-layout': isNavbarCollapsed}" style="overflow:hidden;">
-      <div class="nav-images border-bottom">
+    <div [ngClass]="{'col-lg-10': !isNavbarCollapsed, 'full-width': isNavbarCollapsed}" >
+      <div class="nav-images border-bottom ml-0 p-2">
         <span>
           <img alt="" class="menu" (click)="toggleNavbar()" src="assets/images/menu.webp">
         </span>
@@ -74,23 +80,68 @@
          
           <img src="assets/images/sun.svg" alt="sunlight" class="nav-image" >
 
-          <img src="assets/images/notification.svg" alt="Customer Image" class="nav-image">
+
+          <div class="dropdown" (click)="toggleDropdown3()">
+            <img src="assets/images/notification.svg" alt="Customer Image"  class="dropdown-toggle ml-3 nav-image" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            
+            <!-- Dropdown menu -->
+            <div class="dropdown-menu dropdown-menu-right p-2" *ngIf="isDropdownOpen3" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item p-3" ><b class=" text-start">Notifications</b></a>
+              <hr class="mt-0 mb-0">
+              <a class="dropdown-item font-weight-bold p-2" routerLink="user">
+                <div class="row align-items-center">
+                  <div class="col">
+                    <img src="assets/images/profileimage.svg" alt="Your Image" class="mr-4">
+                    Lorem ipsum, dolor sit amet consectetur<div class="col ml-5 mt-0 font-weight-normal">  2022/01/01 2:23 PM </div> 
+                  </div>
+                </div>
+              </a>
+              <a class="dropdown-item font-weight-bold p-2" routerLink="user">
+                <div class="row align-items-center">
+                  <div class="col">
+                    <img src="assets/images/profileimage.svg" alt="Your Image" class="mr-4">
+                    Lorem ipsum, dolor sit amet consectetur<div class="col ml-5 mt-0 font-weight-normal">  2022/01/01 2:23 PM </div> 
+                  </div>
+                </div>
+              </a>
+              <a class="dropdown-item font-weight-bold p-2" routerLink="user">
+                <div class="row align-items-center">
+                  <div class="col">
+                    <img src="assets/images/profileimage.svg" alt="Your Image" class="mr-4">
+                    Lorem ipsum, dolor sit amet consectetur<div class="col ml-5 mt-0 font-weight-normal">  2022/01/01 2:23 PM </div> 
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
 
           <div class="dropdown" (click)="toggleDropdown()">
-            <img src="assets/images/profileimage.svg" alt="Your Image" class="dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <img src="assets/images/profileimage.svg" alt="Your Image" class="dropdown-toggle ml-3" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             
             <!-- Dropdown menu -->
             <div class="dropdown-menu dropdown-menu-right" *ngIf="isDropdownOpen" aria-labelledby="dropdownMenuButton">
               <a class="dropdown-item" ><b>ScheiBe</b><br>user&#64;example.com</a>
               <hr class="mt-0 mb-0">
-              <a class="dropdown-item" >Account</a>
-              <a class="dropdown-item"  (click)="logout()">Sign Out</a>
+              <a class="dropdown-item" ><i class="fa-solid fa-user"></i> Account</a>
+              <a class="dropdown-item" (click)="logout()"><i class="fa-solid fa-right-from-bracket"></i> Sign Out</a>
             </div>
           </div>
-          <img src="assets/images/preference.svg" alt="Customer Image" class="nav-image">
+
+          <div class="dropdown" (click)="toggleDropdown2()">
+            <img src="assets/images/preference.svg" alt="Customer Image"  class="dropdown-toggle ml-3 nav-image" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            
+            <!-- Dropdown menu -->
+            <div class="dropdown-menu dropdown-menu-right" *ngIf="isDropdownOpen2" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" ><b>Preferences</b></a>
+              <hr class="mt-0 mb-0">
+              <a class="dropdown-item" routerLink="user"><i class="fa-solid fa-user"></i> Users/Roles</a>
+              <a class="dropdown-item"><i class="fa-solid fa-gear"></i> Global Settings</a>
+              <a class="dropdown-item"> <i class="fa-solid fa-handshake"></i> Agreement</a>
+            </div>
+          </div>
         </div>
       </div>
-        <router-outlet></router-outlet>
+        <router-outlet  [ngClass]="{'col-lg-10': !isNavbarCollapsed, 'full-width': isNavbarCollapsed}"></router-outlet>
      </div>
   </div>
 </div>

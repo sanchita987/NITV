@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
 import { Validators } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
 import { ReactiveFormsModule, FormBuilder } from '@angular/forms';
 import { CustomerService } from '../customer.service';
 import { FormGroup } from '@angular/forms';
@@ -23,7 +22,7 @@ export class UserRegisterComponent {
   registerResponse: any = null;
   errorResponse: any = ''
   constructor(private userserviceservice: UserService,
-    // private route: Router,
+  private router: Router,
     private fb: FormBuilder) {
     this.registerForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -39,23 +38,25 @@ export class UserRegisterComponent {
   
 
   onregister(): void {
-    console.log(this.registerForm.value)
+    console.log(this.registerForm.value);
     if (!this.registerForm.valid) {
       return;
     }
     const registerData = this.registerForm.value;
-    this.userserviceservice.registerUser(registerData).subscribe(
-      (response) => {
+    this.userserviceservice.registerUser(registerData).subscribe({
+      next: (response) => {
         this.registerResponse = response;
+        this.router.navigate(['admin/user']);
         console.log('Register successful:', response);
+        this.registerForm.reset();
       },
-      (error) => {
-        console.log(error.status)
-        this.errorResponse = "Error Occured";
-
+      error: (error) => {
+        console.log(error.status);
+        this.errorResponse = "Error Occurred";
       }
-    );
-  }
+    });
+}
+
 
   get name() {
     return this.registerForm.get('name')

@@ -4,13 +4,16 @@
   .navbar-collapse {
     flex-direction: column;
   }
-img:hover{
+  img:hover{
   cursor:pointer;
 }
   .navbar-expand-lg .navbar-nav {
     flex-direction: column;
   }
-
+a{
+  font-size: 13px;
+  padding-bottom: 4px;
+}
   .navbar {
     align-items: flex-start;
     position: fixed;
@@ -26,11 +29,12 @@ img:hover{
   form input {
     margin-bottom: 0.7em;
   }
-  .nav-item:hover {
-
-    background-color: rgba(247, 247, 247, 0.973);
+   .nav-item:hover img{
+    filter: invert(55%) sepia(27%) saturate(1710%) hue-rotate(171deg) brightness(96%) contrast(93%);
   }
-
+  .active{
+    filter: invert(55%) sepia(27%) saturate(1710%) hue-rotate(171deg) brightness(96%) contrast(93%);
+  }
   .nav-link {
     cursor: pointer;
   }
@@ -55,8 +59,11 @@ img:hover{
     width: 20px;
   }
   .customer-image , .subscription-image, .payment-image, .user-image, .invoice-image, .tax-image, .menu{
-    height: 25px; width: 25px;
+    height: 20px; width: 20px;
     color: transparent;
+  }
+  .menu{
+margin-left: 0%;
   }
   .nav-images {
     display: flex;
@@ -94,9 +101,6 @@ img:hover{
   visibility: hidden;
 }
 
-.menu {
-  cursor: pointer;
-}
 .expanded {
   flex: 0 0 200px;
 }
@@ -105,15 +109,7 @@ img:hover{
   height: auto; 
 }
 
-.expanded-layout {
-  width: calc(100% - 250px); 
-  margin-right: auto;
-}
-
-.collapsed-layout {
-  width: 100%;
-}
-.dropdown-item {
+.dropdown-item, .menu {
   cursor: pointer;
 }
 .active, .active-icon {
@@ -130,16 +126,27 @@ img:hover{
 .border-bottom {
   border-bottom: 1px solid #cccccc5f;
   padding :5px
-
-}
-.blue-hover {
-  filter: brightness(150%) saturate(200%);
 }
 .dropdown-item:focus,
 .dropdown-item:hover {
   background-color: #0d6efd;
 }
-
+span{
+  color: rgb(37, 37, 37);
 }
-  
+.expanded {
+  width: calc(100% - [width to subtract for expanded navbar]);
+}
 
+.small-border {
+width:5% !important;
+}
+}
+.full-width{
+  max-width: 100%;
+  padding-left: 195px;}
+  /* "{'col-lg-10': !isNavbarCollapsed, 'full-width': isNavbarCollapsed}"
+
+  .full-width{
+    max-width: 100%;
+    padding-left: 195px;} */

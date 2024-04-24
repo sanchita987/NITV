@@ -1,13 +1,16 @@
-<div class="mt-5   mr-auto">
+<div class="mt-5 mr-auto ml-2">
     <div class="row align-items-center justify-content-end p-0">
         <div class="col-auto mr-auto mt-2 ">
             <div class="form-group-0">
-              <h2><img src="assets/images/left-arrow.png" routerLink="/admin/customer" class="custom-img mr-4" alt="left-arrow"><b>Add Customer</b></h2>
+              <h1><button type="button" class="btn border p-1">
+                <img src="assets/images/back.png" routerLink="/admin/customer"
+                class="custom-img" alt="left-arrow">
+            </button><b class="ml-3">Add Customer</b></h1>
             </div>
           </div>
           </div>
 
-    <form [formGroup]="customer_registerForm">
+    <form [formGroup]="customer_registerForm" (ngSubmit)="onregister()">
         <div *ngIf="errorResponse">
             {{errorResponse}}
         </div>
@@ -120,7 +123,7 @@
             </div>
         </div>
         <div class="row mb-3">
-            <ul class="nav">
+            <ul class="nav font-weight-bold">
                 <li class="nav-item home">
                     <a class="nav-link" [ngClass]="{ 'active': section === 'profile' }"
                         (click)="switchSection('profile')">Profile</a>
@@ -261,14 +264,14 @@
             </div>
             <div class="row">
                 <div class="form-outline mb-2 col">
-                    <label class="form-label" for="residenceCardFront">Residence Card Front</label>
+                    <label class="form-label" for="residenceCardFront" class="required">Residence Card Front</label>
                     <input type="file" id="residenceCardFront" class="form-control-file"
                         (change)="onFileSelected($event, 'front')" formControlName="residence_card_front" />
                         <img *ngIf="frontPreview" [src]="frontPreview" alt="Front Preview" class="img-preview" />
                         <button *ngIf="frontPreview" type="button" class="btn-close" aria-label="Close" (click)="discardFrontPhoto()"></button>
                     </div>
                 <div class="form-outline mb-2 col">
-                    <label class="form-label" for="residenceCardBack">Residence Card Back</label>
+                    <label class="form-label" for="residenceCardBack" class="required">Residence Card Back</label>
                     <input type="file" id="residenceCardBack" class="form-control-file"
                         (change)="onFileSelected($event, 'back')" formControlName="residence_card_back" />
                     <img *ngIf="backPreview" [src]="backPreview" alt="Back Preview" class="img-preview" />
@@ -402,12 +405,14 @@
                     </table>
                 </div>
             </div>
-            <button type="button" class="btn btn-info" (click)="addInputField()">Add Contact</button>
+            <button type="button" class="btn btn-primary" (click)="addInputField()">Add Contact</button>
         </div>
 
         <br />
         <button type="button" class="btn btn-primary" (click)="onregister()"
-            [disabled]="!customer_registerForm.valid" style="width: 200px;">Save</button>
+            [disabled]="!customer_registerForm.valid" style="width: 200px;">Save
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="apicall"></span></button>
+
 
         <div *ngIf="customer_registerResponse" class="alert alert-success">
             Registration successful!

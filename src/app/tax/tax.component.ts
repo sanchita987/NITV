@@ -16,7 +16,7 @@ export class TaxComponent {
   loading: boolean = true;
 
   constructor(private taxService: TaxService) {
-    this.taxService.gettax()
+    this.taxService.getTax()
       .pipe(
         finalize(() => {
           this.loading = false;
@@ -39,5 +39,8 @@ export class TaxComponent {
           }
         }
       });
+  }
+  truncateText(text: string, maxLength: number = 20): string {
+    return text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
   }
 }

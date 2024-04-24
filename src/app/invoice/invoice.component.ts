@@ -22,10 +22,22 @@ export class InvoiceComponent implements OnInit {
   ngOnInit(): void {
     this.loadInvoice();
   }
-
-  loadInvoice(): void {
+  filter = 'all';
+  search = '';
+  
+  filterData(e: any) {
+    this.filter = e.target.value;
+    this.loadInvoice();
+  }
+  
+  searchData(e: any) {
+    this.search = e.target.value;
+    this.loadInvoice();
+  }
+  
+  loadInvoice(sortOrder: string = 'desc'): void {
     this.loading = true;
-    this.invoiceService.getInvoice({})
+    this.invoiceService.getInvoice({ filter: this.filter, search: this.search, page: 1, sort_order: sortOrder })
       .pipe(
         finalize(() => {
           this.loading = false;
@@ -41,4 +53,5 @@ export class InvoiceComponent implements OnInit {
         }
       });
   }
+  
 }

@@ -20,7 +20,7 @@ export class CustomerComponent implements OnInit {
   customers: any = {
     items: []
   };
-  loading:boolean = true;
+  loading: boolean = true;
   sortColumn = 'created_at';
   reverseSort = false;
   currentPage: number = 1;
@@ -32,7 +32,7 @@ export class CustomerComponent implements OnInit {
     return text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
   }
 
-  constructor(private data: CustomerService, 
+  constructor(private data: CustomerService,
     private router: Router,) { }
 
   ngOnInit() {
@@ -53,7 +53,15 @@ export class CustomerComponent implements OnInit {
     this.loadCustomers()
   }
   loadCustomers() {
-    this.data.getCustomers(this.currentPage, this.sortColumn, this.reverseSort ? 'desc' : 'asc', this.search, this.filter)
+    // Update the sortColumn to 'created_at' to sort by creation date
+    this.sortColumn = 'created_at';
+
+    this.data.getCustomers(
+      this.currentPage,
+      this.sortColumn, 'desc',
+      this.search,
+      this.filter
+    )
       .pipe(
         finalize(() => {
           this.loading = false;
@@ -66,7 +74,8 @@ export class CustomerComponent implements OnInit {
         this.totalPages = Math.min(response.total_pages, 10);
       });
   }
-  
+
+
 
   toggleSortOrder(column: string): void {
     if (this.sortColumn === column) {
@@ -87,9 +96,15 @@ export class CustomerComponent implements OnInit {
     });
   }
 
-loadNextPage() {
+  loadNextPage() {
+    if (this.currentPage >= 52) {
+      alert('No more next pages found');
+      return;
+    }
     this.currentPage++;
     this.loadCustomers();
+    console.log('Current Page:', this.currentPage);
+    console.log('Total Pages:', this.totalPages);
   }
 
   loadPreviousPage() {

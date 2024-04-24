@@ -1,22 +1,21 @@
 <div class="row p-0 pt-4 ">
     <div class="col-4">
 
-        <h2 class=" sticky-header mb-5 p-4">Products
+        <h2 class=" sticky-header mb-0 p-2 mt-3">Products
             <span class="plus-sign">
                 <div class="dropdown">
-                    <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <img src="assets/images/dots.png" alt="Dropdown image" class="image">
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right">
+                    <button type="button" aria-label="plus" class="btn border"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="assets/images/dots.png" alt="Dropdown image" class="image"></button>
+                    <div class="dropdown-menu dropdown-menu-right" style="padding: 0;">
                         <a class="dropdown-item" (click)="filterData('all')">All</a>
-                        <a class="dropdown-item"  (click)="filterData('active')">Active</a>
+                        <a class="dropdown-item" (click)="filterData('active')">Active</a>
                         <a class="dropdown-item" (click)="filterData('inactive')">Inactive</a>
                     </div>
                 </div>
+
             </span>
             <span class="plus-sign mr-1">
                 <div class="form-group ml-2">
-                    <button type="button" aria-label="plus" class="btn btn-primary"
+                    <button type="button" aria-label="plus" class="btn button"
                         [routerLink]="['/admin/create-product']">
                         <i class="fa-solid fa-plus fa-2xs "></i>
                     </button>
@@ -24,28 +23,33 @@
             </span>
         </h2>
         <div class="padding-top">
-            <div class=" customer-table border">
+            <div class=" customer-table border mt-3">
                 <div *ngFor="let item of products" class="">
                     <div class="d-flex  border-bottom mt-3">
                         <div class="col ml-2">
                             <input type="checkbox" aria-label="checkbox" class="mr-1">
                             <a (click)="updateItemId(item.id)" class="text-start text-bolder mb-1"
-                                routerLinkActive="{{ item?.name}}" style="text-decoration: none; color: black;">
-                                <strong>{{ item?.name}}</strong></a>
+                                style="text-decoration: none; color: black; cursor: pointer;">
+                                <strong>{{ item?.name }}</strong>
+                            </a>
+
                             <div class="d-flex justify-content-between">
                                 <div class="d-inline-block mr-0">
-                                    <small class="">
-                                        <p class="text-start text-muted">{{ item.active_plan_count }} Plans</p>
+                                    <small
+                                        [ngClass]="{ 'active-plan': item.id === activeLinkName,'text-muted': item.id !== activeLinkName }">
+                                        <p class="text-start">{{ item.active_plan_count }} Plans</p>
                                     </small>
                                 </div>
                                 <div class="d-inline-block mr-0">
-                                    <small>
-                                        <p class="text-start text-muted">{{ item.active_addon_count }} Addons</p>
+                                    <small
+                                        [ngClass]="{ 'active-plan': item.id === activeLinkName,'text-muted': item.id !== activeLinkName  }">
+                                        <p class="text-start ">{{ item.active_addon_count }} Addons</p>
                                     </small>
                                 </div>
                                 <div class="d-inline-block mr-0">
-                                    <small>
-                                        <p class="text-start text-muted">{{ item.active_coupon_count }} Coupons</p>
+                                    <small
+                                        [ngClass]="{ 'active-plan': item.id === activeLinkName ,'text-muted': item.id !== activeLinkName }">
+                                        <p class="text-start">{{ item.active_coupon_count }} Coupons</p>
                                     </small>
                                 </div>
                                 <div class="d-inline-block ml-5">
@@ -59,17 +63,60 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div><br><br><br>
                 <br>
             </div>
         </div>
     </div>
-    <div class="col-8 table-responsive pt-5 pl-0">
-        <div class="col-auto mr-auto border-bottom pl-0">
-            <h1><img src="assets/images/left-arrow.png" routerLink="/admin/products" class="custom-img mr-4"
-                    alt="left-arrow"><b class="text-capitalize text-start"><span class="">{{product?.name}}</span></b>
-            </h1>
+    <div class="col-8 table-responsive pt-4 pl-0">
+        <div class="container border-bottom">
+            <div class="row align-items-center justify-content-end p-o">
+                <div class="col-auto mr-auto mt-2 ">
+                    <div class="form-group-0">
+                        <div class="col-auto mr-auto  pl-0">
+                            <h1><button type="button" class="btn border p-1">
+                                <img src="assets/images/back.png" routerLink="/admin/products"
+                                class="custom-img" alt="left-arrow">
+                            </button><b class="text-capitalize text-start ml-1"><span
+                                        class="">{{product?.name}}</span></b>
+                            </h1>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-auto px-1">
+                    <div class="form-group mr-0">
+                    </div>
+                </div>
+                <div class="col-auto px-1">
+                    <div class="form-group mr-0">
+                        <button type="button" class="btn border">
+                            <i class="fas fa-edit mr-1"></i>Edit
+                        </button>
+                    </div>
+                </div>
+                <div class="col-auto px-1">
+                    <div class="form-group mr-0">
+                        <button type="button" class="button border p-2">
+                            + Add Plan
+                        </button>
+                    </div>
+                </div>
+                <div class="col-auto px-1">
+                    <div class="form-group mr-0">
+                            <div class="dropdown">
+                                <button type="button" aria-label="plus" class="btn border"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="assets/images/dots.png" alt="Dropdown image" class="image"></button>
+                                <div class="dropdown-menu dropdown-menu-right" style="padding: 0;">
+                                    <a class="dropdown-item" (click)="filterData('all')">All</a>
+                                    <a class="dropdown-item" (click)="filterData('active')">Active</a>
+                                    <a class="dropdown-item" (click)="filterData('inactive')">Inactive</a>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
         </div>
+
         <div class="row mt-0 mb-3">
             <nav class="navbar navbar-expand-lg ">
                 <div class="container border-bottom">
@@ -175,3 +222,6 @@
         </div>
     </div>
 </div>
+
+
+

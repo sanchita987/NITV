@@ -1,6 +1,6 @@
 <!---serch buttons-->
 <div class="row mt-4 ml-2">
-  <div class="container mt-5 ">
+  <div class="container mt-4 ">
     <div class="row align-items-center justify-content-end p-0">
       <div class="col-auto mr-auto">
         <div class="form-group-0">
@@ -33,48 +33,48 @@
       </div>
       <div class="col-auto px-1">
         <div class="form-group mr-0">
-          <button type="button" [routerLink]="['/admin/customer-register']" class="btn btn-primary">
-            <i class="fa-solid fa-plus mr-1"></i>Add new
+          <button type="button" [routerLink]="['/admin/customer-register']" class="btn button">
+            + Add new
           </button>
         </div>
       </div>
     </div>
   </div>
   <ng-container *ngIf="customers.items.length" >
-    <table class="table mb-0" *ngIf="!loading && customers.items.length">
+    <table class="table mb-4" *ngIf="!loading && customers.items.length">
       <thead>
         <tr>
-          <th scope="col" (click)="toggleSortOrder('customer_number')" class="sortable-header">Customer No</th>
+          <th scope="col" (click)="toggleSortOrder('customer_number')" class="sortable-header">Customer No.</th>
           <th scope="col" (click)="toggleSortOrder('first_name')" class="sortable-header">Name</th>
           <th scope="col" (click)="toggleSortOrder('email')" class="sortable-header pl-4px">Email</th>
           <th scope="col" (click)="toggleSortOrder('phone')" class="sortable-header">Phone</th>
-          <th scope="col" class="sortable-header">Due amount</th>
-          <th scope="col" (click)="toggleSortOrder('excess_credit')" class="sortable-header">Excess Credit</th>
+          <th scope="col" class="sortable-header text-nowrap">Due Total</th>
+          <th scope="col" (click)="toggleSortOrder('excess_credit')" class="sortable-header text-nowrap">Excess Credit</th>
           <th scope="col" (click)="toggleSortOrder('is_active')" class="sortable-header">Status</th>
           <th scope="col">Action</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let post of customers.items" >
-          <td>{{post.customer_number}}</td>
+          <td class="no-wrap">{{post.customer_number}}</td>
           <td>{{ truncateText(post.first_name) }}</td>
           <td>{{post.email}}</td>
           <td>{{post.phone}}</td>
           <td>
-            <span>$ {{post.total_due_amount}}</span>
+            <span>¥ {{post.total_due_amount}}</span>
           </td>
-          <td>{{post.excess_credit}}</td>
+          <td>¥ {{post.excess_credit}}</td>
           <td><span [ngClass]="{'text-success': post.is_active, 'text-danger': !post.is_active}"
               class="badge bg-light fw-bold">{{post.text}}
             </span></td>
           <td>
-            <div class="dropdown">
+            <div class="dropdown dropleft">
               <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <img src="assets/images/dot.png" alt="Dashboard Image" class="image">
               </a>
-              <div class="dropdown-menu dropdown-menu-right">
-                <a [routerLink]="['/admin/customer', post.id]" class="dropdown-item">Detail</a>
-                <a [routerLink]="['/admin/customer', post.id, 'update']" class="dropdown-item">Update</a>
+              <div class="dropdown-menu">
+                <a [routerLink]="['/admin/customer', post.id]" class="dropdown-item">Show</a>
+                <a [routerLink]="['/admin/customer', post.id, 'update']" class="dropdown-item">Edit</a>
               </div>
             </div>
           </td>
@@ -83,6 +83,8 @@
         </tr>
       </tbody>
     </table>
+    
+  </ng-container>
     <ng-container *ngIf="loading">
       <div class="text-center">
           <div class="spinner-border" role="status">
@@ -93,12 +95,19 @@
 
 
     <!-- Pagination and bootstrap -->
-    <div class="pagination mt-3">
-      <button (click)="loadPreviousPage()">Previous</button>
-      <span *ngFor="let page of getPageNumbers()">
-        <button (click)="loadPage(page)" [class.active]="currentPage === page">{{ page }}</button>
-      </span>
-      <button (click)="loadNextPage()">Next</button>
-    </div>
-  </ng-container>
+<nav aria-label="Page navigation example mt-5">
+  <ul class="pagination justify-content-center">
+    <li class="page-item" (click)="loadPreviousPage()">
+      <a class="page-link" [class.active]="currentPage === 1">Previous</a>
+    </li>
+    <ng-container *ngFor="let page of getPageNumbers()">
+      <li class="page-item">
+        <a class="page-link" (click)="loadPage(page)" [class.active]="currentPage === page">{{ page }}</a>
+      </li>
+    </ng-container>
+    <li class="page-item" (click)="loadNextPage()">
+      <a class="page-link" [ngClass]="{'active': currentPage >5 }">Next</a>
+    </li>
+  </ul>
+</nav>
 </div>

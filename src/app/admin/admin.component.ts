@@ -13,8 +13,11 @@ import { Router, RouterModule } from '@angular/router';
 export class AdminComponent {
   isHovered: boolean = false;
   isNavbarCollapsed: boolean = false;
+  isNavbarExpanded: boolean = false;
   isTextGrown: boolean = true;
+  isDropdownOpen2: boolean = false;
   isDropdownOpen: boolean = false;
+  isDropdownOpen3: boolean = false;
   constructor(private router: Router) {}
  
   testClick() {
@@ -22,6 +25,7 @@ export class AdminComponent {
   }
   toggleNavbar() {
     this.isNavbarCollapsed = !this.isNavbarCollapsed;
+    this.isNavbarExpanded = !this.isNavbarExpanded;
     console.log('Navbar collapsed state:', this.isNavbarCollapsed);
   }
   logout() {
@@ -31,6 +35,13 @@ export class AdminComponent {
   toggleDropdown() {
     this.isDropdownOpen = !this.isDropdownOpen;
     console.log('isDropdownOpen:', this.isDropdownOpen);
+  }
+  toggleDropdown2() {
+    this.isDropdownOpen2 = !this.isDropdownOpen2;
+  }
+  toggleDropdown3() {
+    this.isDropdownOpen3 = !this.isDropdownOpen3;
+    console.log('isDropdownOpen3:', this.isDropdownOpen3);
   }
 
 

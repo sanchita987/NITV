@@ -1,33 +1,41 @@
 .active {
+  color: rgb(35, 137, 255);
   border-bottom: 2px solid rgb(35, 137, 255);
 }
-.light-line {
-    border-top: 1px solid #ccc; 
-    width: 100%;
-    margin: 0;
-}
-.nav-item {
-cursor: pointer;
-white-space: nowrap;
-  }
-  .image{
-    height: 20px; 
-    width: 20px;
 
-  }
-  .text-size {
-    font-size: 11px;
-    color:#a3a5a7;
+.light-line {
+  border-top: 1px solid #ccc;
+  width: 100%;
+  margin: 0;
 }
-.text-left {
-    text-align: left;
+
+.nav-item {
+  cursor: pointer;
+  white-space: nowrap;
 }
-.custom-img {
+
+.image {
   height: 20px;
   width: 20px;
+
+}
+
+.text-size {
+  font-size: 11px;
+  color: #a3a5a7;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.custom-img {
+  height: 30px;
+  width: 30px;
   margin-bottom: 10px;
   cursor: pointer;
 }
+
 thead th {
   top: 0;
 }
@@ -35,41 +43,74 @@ thead th {
 table th {
   font-size: 12px;
 }
-.table  tr {
+
+.table tr {
   border-bottom: 1px solid #ececec;
-  padding:15px;
+  padding: 15px;
 }
+
 .table td,
 .table th {
   border: none;
 }
+
 .no-wrap {
   white-space: nowrap;
 }
+
 .sticky-header {
   position: fixed;
   background-color: rgb(254, 252, 252);
-  width:25%;
-  z-index:5;
+  width: 25%;
+  z-index: 5;
   padding-top: 5px;
 }
-.customer-table{
+
+.customer-table {
   width: 25%;
   max-height: 100%;
   transition: width 0.3s ease-in-out;
   overflow-y: auto;
   padding-top: 0px;
-  position:fixed;
+  position: fixed;
 }
+
 .plus-sign {
   float: right;
   font-size: 10px;
 }
-.image{
-  height:20px;
-  width:20px
- }
- .padding-top{
+
+.image {
+  height: 20px;
+  width: 20px
+}
+
+.padding-top {
+  padding-top: 88px;
+}
+
+.padding-bottom {
   padding-top: 95px;
- }
- 
+}
+p :hover {
+  cursor: pointer;
+}
+
+.active-plan {
+  color: rgb(46, 126, 218);
+  cursor: pointer;
+}
+.dropdown-item{
+  padding-top: 0rem;
+  padding-bottom: 0rem;
+  background-color: white;
+}
+.dropdown-item:hover{
+  color: rgb(35, 137, 255);
+}
+.ggg{
+  width:40px;
+  height:40px;
+  
+}
+

@@ -68,7 +68,7 @@
     width:20px
    }
    .padding-top{
-    padding-top: 95px;
+    padding-top: 70px;
    }
    .vertical-slider-container {
     width: 200px;
@@ -101,4 +101,12 @@
 .transparent-box {
   background-color: rgba(224, 224, 224, 0.744);
   border: 1px solid transparent; 
+}
+.dropdown-item{
+  padding-top: 0rem;
+  padding-bottom: 0rem;
+  background-color: white;
+}
+.dropdown-item:hover{
+  color: rgb(35, 137, 255);
 }
